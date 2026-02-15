@@ -1,65 +1,96 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { useState } from "react";
+import { venues } from "@/lib/venues-data";
+import VenueCard from "@/components/VenueCard";
+import SportFilter from "@/components/SportFilter";
+import Link from "next/link";
+import { Sport } from "@/types/venue";
+
+export default function HomePage() {
+  const [selectedSport, setSelectedSport] = useState("all");
+
+  const filtered =
+    selectedSport === "all"
+      ? venues
+      : venues.filter((v) => v.sports.includes(selectedSport as Sport));
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
+    <div>
+      <section className="py-16 sm:py-24 px-4">
+        <div className="max-w-3xl mx-auto text-center">
+          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
+            Rent Sports Courts
+            <br />
+            <span className="text-gray-400">in San Francisco</span>
           </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+          <p className="mt-4 text-lg text-gray-500 max-w-xl mx-auto">
+            Basketball, soccer, tennis, volleyball, pickleball — find the perfect court or field for your group.
           </p>
+          <div className="mt-8">
+            <Link
+              href="/request"
+              className="inline-block bg-gray-900 text-white font-medium px-8 py-3.5 rounded-xl text-base hover:bg-gray-800 transition-colors shadow-sm"
+            >
+              Tell Us What You Need
+            </Link>
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
+      </section>
+
+      <section className="px-4 pb-4">
+        <div className="max-w-5xl mx-auto">
+          <SportFilter selected={selectedSport} onChange={setSelectedSport} />
         </div>
-      </main>
+      </section>
+
+      <section className="px-4 pb-16">
+        <div className="max-w-5xl mx-auto">
+          <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {filtered.map((venue) => (
+              <VenueCard key={venue.id} venue={venue} />
+            ))}
+          </div>
+          {filtered.length === 0 && (
+            <p className="text-center text-gray-400 py-12">
+              No venues found for this sport. Try another filter or{" "}
+              <Link href="/request" className="underline text-gray-600">
+                submit a general request
+              </Link>
+              .
+            </p>
+          )}
+        </div>
+      </section>
+
+      <section className="bg-gray-50 py-16 px-4">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-2xl font-bold text-gray-900">How It Works</h2>
+          <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-8">
+            <div>
+              <div className="text-3xl mb-3">1</div>
+              <h3 className="font-semibold text-gray-900">Tell Us What You Need</h3>
+              <p className="text-sm text-gray-500 mt-1">
+                Fill out a quick form with your sport, date, and group size.
+              </p>
+            </div>
+            <div>
+              <div className="text-3xl mb-3">2</div>
+              <h3 className="font-semibold text-gray-900">We Notify Venues</h3>
+              <p className="text-sm text-gray-500 mt-1">
+                Matching venues in SF are notified about your request.
+              </p>
+            </div>
+            <div>
+              <div className="text-3xl mb-3">3</div>
+              <h3 className="font-semibold text-gray-900">Venues Contact You</h3>
+              <p className="text-sm text-gray-500 mt-1">
+                Interested venues reach out directly with availability and pricing.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

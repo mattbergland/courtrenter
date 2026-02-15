@@ -18,6 +18,10 @@ export async function POST(
       return NextResponse.json({ error: "Lead not found" }, { status: 404 });
     }
 
+    if (!lead.matchedVenueIds.includes(body.venueId)) {
+      return NextResponse.json({ error: "Venue not authorized for this lead" }, { status: 403 });
+    }
+
     const success = unlockLead(id, body.venueId);
     if (!success) {
       return NextResponse.json({ error: "Failed to unlock" }, { status: 500 });

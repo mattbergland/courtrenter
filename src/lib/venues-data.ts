@@ -1,6 +1,8 @@
-import { Venue } from "@/types/venue";
+import { Venue, Sport } from "@/types/venue";
 
-export const venues: Venue[] = [
+const VALID_SPORTS: Sport[] = ["basketball", "soccer", "tennis", "volleyball", "pickleball"];
+
+const seedVenues: Venue[] = [
   {
     id: "kezar-pavilion",
     name: "Kezar Pavilion",
@@ -185,6 +187,121 @@ export const venues: Venue[] = [
   },
 ];
 
+const venueStore = new Map<string, Venue>();
+seedVenues.forEach((v) => venueStore.set(v.id, v));
+
+export function getAllVenues(): Venue[] {
+  return Array.from(venueStore.values());
+}
+
+export const venues = getAllVenues();
+
+function slugify(name: string): string {
+  return name
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+export function addVenue(data: Omit<Venue, "id"> & { id?: string }): Venue {
+  const id = data.id || slugify(data.name);
+  const venue: Venue = { ...data, id };
+  venueStore.set(id, venue);
+  return venue;
+}
+
+export function updateVenue(id: string, data: Partial<Omit<Venue, "id">>): Venue | null {
+  const existing = venueStore.get(id);
+  if (!existing) return null;
+  const updated = { ...existing, ...data };
+  venueStore.set(id, updated);
+  return updated;
+}
+
+export function deleteVenue(id: string): boolean {
+  return venueStore.delete(id);
+}
+
+export function parseVenueCSV(csvText: string): Venue[] {
+  const lines = csvText.split("\n").filter((l) => l.trim());
+  if (lines.length < 2) return [];
+
+  const headers = lines[0].split(",").map((h) => h.trim().toLowerCase());
+  const results: Venue[] = [];
+
+  for (let i = 1; i < lines.length; i++) {
+    const values = parseCSVLine(lines[i]);
+    if (values.length < headers.length) continue;
+
+    const row: Record<string, string> = {};
+    headers.forEach((h, idx) => {
+      row[h] = values[idx]?.trim() || "";
+    });
+
+    const name = row["name"] || "";
+    if (!name) continue;
+
+    const sportsRaw = (row["sports"] || "").split(";").map((s) => s.trim().toLowerCase()).filter(Boolean);
+    const sports = sportsRaw.filter((s) => VALID_SPORTS.includes(s as Sport)) as Sport[];
+    if (sports.length === 0) continue;
+
+    const venue: Venue = {
+      id: row["id"] || slugify(name),
+      name,
+      address: row["address"] || "",
+      neighborhood: row["neighborhood"] || "",
+      sports,
+      description: row["description"] || "",
+      priceRange: row["pricerange"] || row["price_range"] || row["price range"] || "",
+      phone: row["phone"] || "",
+      website: row["website"] || "",
+      indoor: ["true", "yes", "1", "indoor"].includes((row["indoor"] || "false").toLowerCase()),
+      courtCount: parseInt(row["courtcount"] || row["court_count"] || row["courts"] || "1", 10) || 1,
+    };
+
+    results.push(venue);
+  }
+
+  return results;
+}
+
+function parseCSVLine(line: string): string[] {
+  const result: string[] = [];
+  let current = "";
+  let inQuotes = false;
+
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+    if (char === '"') {
+      inQuotes = !inQuotes;
+    } else if (char === "," && !inQuotes) {
+      result.push(current);
+      current = "";
+    } else {
+      current += char;
+    }
+  }
+  result.push(current);
+  return result;
+}
+
+export function importVenuesFromCSV(csvText: string): { added: number; errors: string[] } {
+  const parsed = parseVenueCSV(csvText);
+  const errors: string[] = [];
+  let added = 0;
+
+  parsed.forEach((venue, idx) => {
+    try {
+      addVenue(venue);
+      added++;
+    } catch {
+      errors.push(`Row ${idx + 2}: Failed to import "${venue.name}"`);
+    }
+  });
+
+  return { added, errors };
+}
+
 export const sportLabels: Record<string, string> = {
   basketball: "Basketball",
   soccer: "Soccer",
@@ -202,10 +319,11 @@ export const sportEmoji: Record<string, string> = {
 };
 
 export function getVenueById(id: string): Venue | undefined {
-  return venues.find((v) => v.id === id);
+  return venueStore.get(id);
 }
 
 export function getVenuesBySport(sport: string): Venue[] {
-  if (sport === "all") return venues;
-  return venues.filter((v) => v.sports.includes(sport as Venue["sports"][number]));
+  const all = getAllVenues();
+  if (sport === "all") return all;
+  return all.filter((v) => v.sports.includes(sport as Sport));
 }

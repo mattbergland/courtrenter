@@ -1,19 +1,26 @@
 "use client";
 
-import { useState } from "react";
-import { venues } from "@/lib/venues-data";
+import { useState, useEffect } from "react";
 import VenueCard from "@/components/VenueCard";
 import SportFilter from "@/components/SportFilter";
 import Link from "next/link";
-import { Sport } from "@/types/venue";
+import { Sport, Venue } from "@/types/venue";
 
 export default function HomePage() {
   const [selectedSport, setSelectedSport] = useState("all");
+  const [venueList, setVenueList] = useState<Venue[]>([]);
+
+  useEffect(() => {
+    fetch("/api/venues")
+      .then((r) => r.json())
+      .then((data: Venue[]) => setVenueList(data))
+      .catch(() => {});
+  }, []);
 
   const filtered =
     selectedSport === "all"
-      ? venues
-      : venues.filter((v) => v.sports.includes(selectedSport as Sport));
+      ? venueList
+      : venueList.filter((v) => v.sports.includes(selectedSport as Sport));
 
   return (
     <div>

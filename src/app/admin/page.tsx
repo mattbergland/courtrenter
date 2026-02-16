@@ -36,11 +36,13 @@ export default function AdminPage() {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    const stored = sessionStorage.getItem("admin_auth");
-    if (stored === "true") {
-      setAuthenticated(true);
-    }
-    setAuthLoading(false);
+    fetch("/api/admin/auth")
+      .then((r) => r.json())
+      .then((data: { authenticated: boolean }) => {
+        if (data.authenticated) setAuthenticated(true);
+      })
+      .catch(() => {})
+      .finally(() => setAuthLoading(false));
   }, []);
 
   async function handleLogin() {
@@ -53,7 +55,6 @@ export default function AdminPage() {
         body: JSON.stringify({ password }),
       });
       if (res.ok) {
-        sessionStorage.setItem("admin_auth", "true");
         setAuthenticated(true);
       } else {
         setAuthError("Wrong password");

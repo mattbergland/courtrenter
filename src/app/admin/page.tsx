@@ -16,6 +16,7 @@ const emptyForm = {
   website: "",
   indoor: false,
   courtCount: 1,
+  imageUrl: "",
 };
 
 export default function AdminPage() {
@@ -97,6 +98,7 @@ export default function AdminPage() {
       website: venue.website,
       indoor: venue.indoor,
       courtCount: venue.courtCount,
+      imageUrl: venue.imageUrl || "",
     });
     setShowForm(true);
     window.scrollTo({ top: 0, behavior: "smooth" });
@@ -367,6 +369,17 @@ export default function AdminPage() {
                     className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
                   />
                 </div>
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Photo URL</label>
+                <input
+                  type="url"
+                  value={form.imageUrl}
+                  onChange={(e) => setForm({ ...form, imageUrl: e.target.value })}
+                  placeholder="https://example.com/photo.jpg"
+                  className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
+                />
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">

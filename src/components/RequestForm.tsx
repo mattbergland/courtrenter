@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AgeGroup, CourtRequest, LeadRequest, RentalPurpose, Sport } from "@/types/venue";
 
@@ -151,6 +151,19 @@ export default function RequestForm() {
   const [renterPhone, setRenterPhone] = useState("");
   const [renterEmail, setRenterEmail] = useState("");
 
+  const [venueCount, setVenueCount] = useState(0);
+
+  const fetchVenueCount = useCallback(() => {
+    fetch("/api/venues")
+      .then((r) => r.json())
+      .then((data: unknown[]) => setVenueCount(data.length))
+      .catch(() => {});
+  }, []);
+
+  useEffect(() => {
+    fetchVenueCount();
+  }, [fetchVenueCount]);
+
   const dateOptions = useMemo(
     () => [date1, date2, date3].map((d) => d.trim()).filter(Boolean),
     [date1, date2, date3]
@@ -162,12 +175,13 @@ export default function RequestForm() {
     if (step === 2) return ageGroup !== null;
     if (step === 3) return purpose !== null;
     if (step === 4) return groupSize > 0;
-    if (step === 5) return !!renterName && !!renterPhone && !!renterEmail;
+    if (step === 5) return true;
+    if (step === 6) return !!renterName && !!renterPhone && !!renterEmail;
     return true;
   }
 
   function next() {
-    setStep((s) => Math.min(s + 1, 6));
+    setStep((s) => Math.min(s + 1, 7));
   }
 
   function back() {
@@ -217,7 +231,8 @@ export default function RequestForm() {
     }
   }
 
-  const progress = Math.round(((step + 1) / 7) * 100);
+  const totalSteps = 8;
+  const progress = Math.round(((step + 1) / totalSteps) * 100);
 
   return (
     <div className="space-y-6">
@@ -227,7 +242,7 @@ export default function RequestForm() {
         </div>
         <div className="mt-2 flex items-center justify-between text-xs text-gray-400">
           <span>Fast basketball court request</span>
-          <span>{step + 1}/7</span>
+          <span>{step + 1}/{totalSteps}</span>
         </div>
       </div>
 
@@ -455,10 +470,28 @@ export default function RequestForm() {
 
         {step === 5 && (
           <div className="space-y-4">
+            <div className="text-center py-4">
+              <div className="w-16 h-16 bg-green-50 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg className="w-8 h-8 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h2 className="text-xl font-semibold text-gray-900">
+                {venueCount > 0 ? `${venueCount} venues match your request` : "Venues match your request"}
+              </h2>
+              <p className="text-sm text-gray-500 mt-2 max-w-sm mx-auto">
+                Just add your contact info and your request will be sent to all of them instantly. Completely free.
+              </p>
+            </div>
+          </div>
+        )}
+
+        {step === 6 && (
+          <div className="space-y-4">
             <div>
               <h2 className="text-xl font-semibold text-gray-900">Where should venues reach you?</h2>
               <p className="text-sm text-gray-500 mt-1">
-                Your contact info is only shared with matching venues after they unlock the lead.
+                Almost done! Just need your contact info so venues can get back to you.
               </p>
             </div>
 
@@ -495,10 +528,19 @@ export default function RequestForm() {
                 className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
               />
             </div>
+
+            <div className="flex items-start gap-2 bg-gray-50 rounded-lg p-3">
+              <svg className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+              </svg>
+              <p className="text-xs text-gray-500">
+                Your info is only shared with venues that match your request. We never sell your data or send spam.
+              </p>
+            </div>
           </div>
         )}
 
-        {step === 6 && (
+        {step === 7 && (
           <div className="space-y-4">
             <div>
               <h2 className="text-xl font-semibold text-gray-900">Review & submit</h2>
@@ -568,7 +610,7 @@ export default function RequestForm() {
         >
           Back
         </button>
-        {step < 6 && (
+        {step < 7 && (
           <button
             type="button"
             onClick={next}

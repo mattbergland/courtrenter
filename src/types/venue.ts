@@ -16,6 +16,7 @@ export interface Venue {
   website: string;
   indoor: boolean;
   courtCount: number;
+  imageUrl?: string;
 }
 
 export interface Lead {

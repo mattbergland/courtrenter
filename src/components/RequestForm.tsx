@@ -194,9 +194,9 @@ const amenityOptions = [
 ];
 
 const courtImages: Record<CourtRequest, string> = {
-  half: "/court-half.png",
-  full: "/court-full.png",
-  multiple: "/court-multiple.png",
+  half: "/court-half.webp",
+  full: "/court-full.webp",
+  multiple: "/court-multiple.webp",
 };
 
 function CourtDiagram({ type }: { type: CourtRequest }) {

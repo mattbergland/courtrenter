@@ -19,6 +19,10 @@ const emptyForm = {
 };
 
 export default function AdminPage() {
+  const [authenticated, setAuthenticated] = useState(false);
+  const [password, setPassword] = useState("");
+  const [authError, setAuthError] = useState("");
+  const [authLoading, setAuthLoading] = useState(true);
   const [venues, setVenues] = useState<Venue[]>([]);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [form, setForm] = useState(emptyForm);
@@ -30,6 +34,36 @@ export default function AdminPage() {
   const [showForm, setShowForm] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
+  useEffect(() => {
+    const stored = sessionStorage.getItem("admin_auth");
+    if (stored === "true") {
+      setAuthenticated(true);
+    }
+    setAuthLoading(false);
+  }, []);
+
+  async function handleLogin() {
+    setAuthError("");
+    setAuthLoading(true);
+    try {
+      const res = await fetch("/api/admin/auth", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password }),
+      });
+      if (res.ok) {
+        sessionStorage.setItem("admin_auth", "true");
+        setAuthenticated(true);
+      } else {
+        setAuthError("Wrong password");
+      }
+    } catch {
+      setAuthError("Something went wrong. Try again.");
+    } finally {
+      setAuthLoading(false);
+    }
+  }
+
   const loadVenues = useCallback(() => {
     fetch("/api/venues")
       .then((r) => r.json())
@@ -38,8 +72,10 @@ export default function AdminPage() {
   }, []);
 
   useEffect(() => {
-    loadVenues();
-  }, [loadVenues]);
+    if (authenticated) {
+      loadVenues();
+    }
+  }, [authenticated, loadVenues]);
 
   function showMessage(msg: string, type: "success" | "error" = "success") {
     setMessage(msg);
@@ -160,6 +196,58 @@ export default function AdminPage() {
       }
     };
     reader.readAsText(file);
+  }
+
+  if (authLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-400">Loading...</p>
+      </div>
+    );
+  }
+
+  if (!authenticated) {
+    return (
+      <div className="min-h-screen flex items-center justify-center px-4">
+        <div className="w-full max-w-sm">
+          <div className="text-center mb-8">
+            <h1 className="text-2xl font-bold text-gray-900">Admin Access</h1>
+            <p className="text-sm text-gray-500 mt-1">Enter your password to continue</p>
+          </div>
+          <form
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleLogin();
+            }}
+            className="space-y-4"
+          >
+            <input
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              autoFocus
+              className="w-full border border-gray-200 rounded-lg px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900"
+            />
+            {authError && (
+              <p className="text-sm text-red-600">{authError}</p>
+            )}
+            <button
+              type="submit"
+              disabled={!password}
+              className="w-full bg-gray-900 text-white font-medium py-3 rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50 cursor-pointer"
+            >
+              Log In
+            </button>
+          </form>
+          <div className="text-center mt-4">
+            <Link href="/" className="text-sm text-gray-400 hover:text-gray-600 transition-colors">
+              &larr; Back to site
+            </Link>
+          </div>
+        </div>
+      </div>
+    );
   }
 
   return (

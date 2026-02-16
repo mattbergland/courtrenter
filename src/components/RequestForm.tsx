@@ -262,7 +262,7 @@ export default function RequestForm() {
   const [courtsNeeded, setCourtsNeeded] = useState(2);
 
   const [selectedDates, setSelectedDates] = useState<string[]>([]);
-  const [dateTimes, setDateTimes] = useState<Record<string, string>>({});
+  const [dateTimes, setDateTimes] = useState<Record<string, string[]>>({});
 
   const [ageGroup, setAgeGroup] = useState<AgeGroup | null>(null);
   const [purpose, setPurpose] = useState<RentalPurpose | null>(null);
@@ -301,13 +301,20 @@ export default function RequestForm() {
         });
         return prev.filter((d) => d !== dateStr);
       }
-      setDateTimes((t) => ({ ...t, [dateStr]: timeSlots[0] }));
+      setDateTimes((t) => ({ ...t, [dateStr]: [timeSlots[0]] }));
       return [...prev, dateStr];
     });
   }
 
-  function setTimeForDate(dateStr: string, time: string) {
-    setDateTimes((t) => ({ ...t, [dateStr]: time }));
+  function toggleTimeForDate(dateStr: string, time: string) {
+    setDateTimes((t) => {
+      const current = t[dateStr] || [];
+      if (current.includes(time)) {
+        const next = current.filter((s) => s !== time);
+        return { ...t, [dateStr]: next.length > 0 ? next : [time] };
+      }
+      return { ...t, [dateStr]: [...current, time] };
+    });
   }
 
   function canGoNext(): boolean {
@@ -455,8 +462,8 @@ export default function RequestForm() {
             <CalendarPicker selected={selectedDates} onToggle={toggleDate} max={3} />
 
             {selectedDates.length > 0 && (
-              <div className="space-y-3">
-                <label className="block text-sm font-medium text-gray-700">Preferred time for each date</label>
+              <div className="space-y-4">
+                <label className="block text-sm font-medium text-gray-700">Preferred times for each date <span className="text-gray-400 font-normal">(tap all that work)</span></label>
                 {selectedDates.map((d) => {
                   const dt = new Date(d + "T00:00:00");
                   const label = dt.toLocaleDateString("en-US", {
@@ -464,20 +471,30 @@ export default function RequestForm() {
                     month: "short",
                     day: "numeric",
                   });
+                  const selected = dateTimes[d] || [];
                   return (
-                    <div key={d} className="flex items-center gap-2 sm:gap-3">
-                      <span className="text-sm font-medium text-gray-700 min-w-[80px] sm:min-w-[100px]">{label}</span>
-                      <select
-                        value={dateTimes[d] || timeSlots[0]}
-                        onChange={(e) => setTimeForDate(d, e.target.value)}
-                        className="flex-1 border border-gray-300 rounded-lg px-2 sm:px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent bg-white"
-                      >
-                        {timeSlots.map((slot) => (
-                          <option key={slot} value={slot}>
-                            {slot}
-                          </option>
-                        ))}
-                      </select>
+                    <div key={d} className="space-y-2">
+                      <span className="text-sm font-medium text-gray-700">{label}</span>
+                      <div className="flex flex-wrap gap-1.5">
+                        {timeSlots.map((slot) => {
+                          const shortLabel = slot.replace(/\s*\(.*\)/, "");
+                          const isActive = selected.includes(slot);
+                          return (
+                            <button
+                              key={slot}
+                              type="button"
+                              onClick={() => toggleTimeForDate(d, slot)}
+                              className={`px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium transition-colors cursor-pointer ${
+                                isActive
+                                  ? "bg-gray-900 text-white"
+                                  : "bg-gray-100 text-gray-600 hover:bg-gray-200"
+                              }`}
+                            >
+                              {shortLabel}
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
                   );
                 })}
@@ -677,17 +694,15 @@ export default function RequestForm() {
               <p className="text-sm text-gray-500 mt-1">Takes about 30 seconds for courts to start seeing it.</p>
             </div>
 
-            <div className="border border-gray-100 rounded-xl p-4 bg-gray-50 space-y-2 text-sm">
+            <div className="border border-gray-100 rounded-xl p-4 bg-gray-50 space-y-2.5 text-sm">
               <div className="flex justify-between gap-4">
                 <span className="text-gray-500">Court</span>
                 <span className="text-gray-900 font-medium text-right">
-                  {courtRequest
-                    ? `${courtRequest}${courtRequest === "multiple" ? ` (${Math.max(2, courtsNeeded)})` : ""}`
-                    : ""}
+                  {courtRequest === "half" ? "Half Court" : courtRequest === "full" ? "Full Court" : courtRequest === "multiple" ? `Multiple Courts (${Math.max(2, courtsNeeded)})` : ""}
                 </span>
               </div>
-              <div className="space-y-1">
-                <span className="text-gray-500">Dates & times</span>
+              <div className="space-y-1.5">
+                <span className="text-gray-500">Dates & Times</span>
                 {dateOptions.map((d) => {
                   const dt = new Date(d + "T00:00:00");
                   const lbl = dt.toLocaleDateString("en-US", {
@@ -695,32 +710,34 @@ export default function RequestForm() {
                     month: "short",
                     day: "numeric",
                   });
+                  const times = dateTimes[d] || [timeSlots[0]];
+                  const timeLabels = times.map((t) => t.replace(/\s*\(.*\)/, ""));
                   return (
                     <div key={d} className="flex justify-between gap-4 pl-2">
                       <span className="text-gray-700 text-sm">{lbl}</span>
                       <span className="text-gray-900 font-medium text-right text-sm">
-                        {dateTimes[d] || timeSlots[0]}
+                        {timeLabels.join(", ")}
                       </span>
                     </div>
                   );
                 })}
               </div>
               <div className="flex justify-between gap-4">
-                <span className="text-gray-500">Group size</span>
-                <span className="text-gray-900 font-medium text-right">{groupSize}</span>
+                <span className="text-gray-500">Group Size</span>
+                <span className="text-gray-900 font-medium text-right">{groupSize} people</span>
               </div>
               <div className="flex justify-between gap-4">
-                <span className="text-gray-500">Age</span>
-                <span className="text-gray-900 font-medium text-right">{ageGroup || ""}</span>
+                <span className="text-gray-500">Age Group</span>
+                <span className="text-gray-900 font-medium text-right capitalize">{ageGroup || ""}</span>
               </div>
               <div className="flex justify-between gap-4">
                 <span className="text-gray-500">Purpose</span>
-                <span className="text-gray-900 font-medium text-right">{purpose || ""}</span>
+                <span className="text-gray-900 font-medium text-right capitalize">{purpose || ""}</span>
               </div>
               {amenities.length > 0 && (
                 <div className="flex justify-between gap-4">
                   <span className="text-gray-500">Amenities</span>
-                  <span className="text-gray-900 font-medium text-right">{amenities.join(", ")}</span>
+                  <span className="text-gray-900 font-medium text-right capitalize">{amenities.map((a) => a.replace(/-/g, " ")).join(", ")}</span>
                 </div>
               )}
             </div>

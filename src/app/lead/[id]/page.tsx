@@ -13,7 +13,7 @@ interface UnlockedLead {
   courtRequest: CourtRequest;
   courtsNeeded: number;
   dateOptions: string[];
-  preferredTime: Record<string, string> | string;
+  preferredTime: Record<string, string[]> | Record<string, string> | string;
   groupSize: number;
   ageGroup: AgeGroup;
   purpose: RentalPurpose;
@@ -155,8 +155,7 @@ export default function LeadDetailPage() {
                 <div className="flex justify-between">
                   <span className="text-sm text-gray-500">Court</span>
                   <span className="text-sm font-medium text-gray-900">
-                    {lead.courtRequest}
-                    {lead.courtRequest === "multiple" ? ` (${lead.courtsNeeded})` : ""}
+                    {lead.courtRequest === "half" ? "Half Court" : lead.courtRequest === "full" ? "Full Court" : lead.courtRequest === "multiple" ? `Multiple Courts (${lead.courtsNeeded})` : lead.courtRequest}
                   </span>
                 </div>
                 <div className="space-y-1">
@@ -168,25 +167,32 @@ export default function LeadDetailPage() {
                       month: "short",
                       day: "numeric",
                     });
-                    const time =
-                      typeof lead.preferredTime === "object"
-                        ? lead.preferredTime[d] || "TBD"
-                        : lead.preferredTime;
+                    let timeDisplay = "TBD";
+                    if (typeof lead.preferredTime === "object") {
+                      const val = lead.preferredTime[d];
+                      if (Array.isArray(val)) {
+                        timeDisplay = val.map((t) => t.replace(/\s*\(.*\)/, "")).join(", ");
+                      } else if (typeof val === "string") {
+                        timeDisplay = val.replace(/\s*\(.*\)/, "");
+                      }
+                    } else if (typeof lead.preferredTime === "string") {
+                      timeDisplay = lead.preferredTime;
+                    }
                     return (
                       <div key={d} className="flex justify-between pl-2">
                         <span className="text-sm text-gray-700">{lbl}</span>
-                        <span className="text-sm font-medium text-gray-900">{time}</span>
+                        <span className="text-sm font-medium text-gray-900">{timeDisplay}</span>
                       </div>
                     );
                   })}
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-gray-500">Age Group</span>
-                  <span className="text-sm font-medium text-gray-900">{lead.ageGroup}</span>
+                  <span className="text-sm font-medium text-gray-900 capitalize">{lead.ageGroup}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-gray-500">Purpose</span>
-                  <span className="text-sm font-medium text-gray-900">{lead.purpose}</span>
+                  <span className="text-sm font-medium text-gray-900 capitalize">{lead.purpose}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-gray-500">Group Size</span>
@@ -200,7 +206,7 @@ export default function LeadDetailPage() {
                       {lead.amenities.length > 0 && (
                         <div>
                           <span className="text-sm text-gray-500 block mb-1">Amenities</span>
-                          <p className="text-sm text-gray-900">{lead.amenities.join(", ")}</p>
+                          <p className="text-sm text-gray-900 capitalize">{lead.amenities.map((a) => a.replace(/-/g, " ")).join(", ")}</p>
                         </div>
                       )}
                       {lead.amenitiesNotes && (

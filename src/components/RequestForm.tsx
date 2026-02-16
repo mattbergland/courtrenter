@@ -36,76 +36,19 @@ const amenityOptions = [
   { value: "scoreboard", label: "Scoreboard" },
 ];
 
+const courtImages: Record<CourtRequest, string> = {
+  half: "/court-half.png",
+  full: "/court-full.png",
+  multiple: "/court-multiple.png",
+};
+
 function CourtDiagram({ type }: { type: CourtRequest }) {
-  const s = {
-    stroke: "#111827",
-    strokeWidth: 1.5,
-    fill: "none",
-    strokeLinecap: "round" as const,
-    strokeLinejoin: "round" as const,
-  };
-
-  if (type === "half") {
-    return (
-      <svg viewBox="0 0 160 100" className="w-full h-24">
-        <rect x="10" y="10" width="140" height="80" rx="2" {...s} />
-        <line x1="80" y1="10" x2="80" y2="90" {...s} opacity={0.2} strokeDasharray="3,3" />
-        <rect x="10" y="30" width="24" height="40" {...s} />
-        <path d="M34 30 A20 20 0 0 1 34 70" {...s} />
-        <path d="M34 50 A6 6 0 1 1 34 49.99" {...s} strokeDasharray="2,2" />
-        <path d="M10 22 A38 38 0 0 1 10 78" {...s} strokeWidth={1} opacity={0.6} />
-        <line x1="10" y1="48" x2="14" y2="48" {...s} strokeWidth={2.5} />
-        <line x1="10" y1="52" x2="14" y2="52" {...s} strokeWidth={2.5} />
-        <rect x="12" y="46" width="4" height="8" rx="1" {...s} strokeWidth={1} />
-        <line x1="12" y1="50" x2="10" y2="50" {...s} strokeWidth={1.5} />
-      </svg>
-    );
-  }
-
-  if (type === "multiple") {
-    return (
-      <svg viewBox="0 0 160 100" className="w-full h-24">
-        <rect x="6" y="10" width="70" height="80" rx="2" {...s} opacity={0.8} />
-        <line x1="41" y1="10" x2="41" y2="90" {...s} opacity={0.8} />
-        <rect x="6" y="35" width="12" height="20" {...s} opacity={0.8} />
-        <rect x="64" y="35" width="12" height="20" {...s} opacity={0.8} />
-        <path d="M18 35 A10 10 0 0 1 18 55" {...s} opacity={0.8} />
-        <path d="M64 35 A10 10 0 0 0 64 55" {...s} opacity={0.8} />
-        <circle cx="41" cy="50" r="5" {...s} opacity={0.8} />
-
-        <rect x="84" y="10" width="70" height="80" rx="2" {...s} opacity={0.8} />
-        <line x1="119" y1="10" x2="119" y2="90" {...s} opacity={0.8} />
-        <rect x="84" y="35" width="12" height="20" {...s} opacity={0.8} />
-        <rect x="142" y="35" width="12" height="20" {...s} opacity={0.8} />
-        <path d="M96 35 A10 10 0 0 1 96 55" {...s} opacity={0.8} />
-        <path d="M142 35 A10 10 0 0 0 142 55" {...s} opacity={0.8} />
-        <circle cx="119" cy="50" r="5" {...s} opacity={0.8} />
-      </svg>
-    );
-  }
-
   return (
-    <svg viewBox="0 0 160 100" className="w-full h-24">
-      <rect x="10" y="10" width="140" height="80" rx="2" {...s} />
-      <line x1="80" y1="10" x2="80" y2="90" {...s} />
-      <circle cx="80" cy="50" r="8" {...s} />
-      <rect x="10" y="30" width="24" height="40" {...s} />
-      <path d="M34 30 A20 20 0 0 1 34 70" {...s} />
-      <path d="M34 50 A6 6 0 1 1 34 49.99" {...s} strokeDasharray="2,2" />
-      <path d="M10 22 A38 38 0 0 1 10 78" {...s} strokeWidth={1} opacity={0.6} />
-      <line x1="10" y1="48" x2="14" y2="48" {...s} strokeWidth={2.5} />
-      <line x1="10" y1="52" x2="14" y2="52" {...s} strokeWidth={2.5} />
-      <rect x="12" y="46" width="4" height="8" rx="1" {...s} strokeWidth={1} />
-      <line x1="12" y1="50" x2="10" y2="50" {...s} strokeWidth={1.5} />
-      <rect x="126" y="30" width="24" height="40" {...s} />
-      <path d="M126 30 A20 20 0 0 0 126 70" {...s} />
-      <path d="M126 50 A6 6 0 1 0 126 49.99" {...s} strokeDasharray="2,2" />
-      <path d="M150 22 A38 38 0 0 0 150 78" {...s} strokeWidth={1} opacity={0.6} />
-      <line x1="146" y1="48" x2="150" y2="48" {...s} strokeWidth={2.5} />
-      <line x1="146" y1="52" x2="150" y2="52" {...s} strokeWidth={2.5} />
-      <rect x="144" y="46" width="4" height="8" rx="1" {...s} strokeWidth={1} />
-      <line x1="148" y1="50" x2="150" y2="50" {...s} strokeWidth={1.5} />
-    </svg>
+    <img
+      src={courtImages[type]}
+      alt={`${type} court diagram`}
+      className="w-full h-28 object-contain"
+    />
   );
 }
 

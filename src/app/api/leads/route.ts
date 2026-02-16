@@ -15,7 +15,7 @@ export async function POST(request: Request) {
       !body.courtsNeeded ||
       !Array.isArray(body.dateOptions) ||
       body.dateOptions.length === 0 ||
-      !body.preferredTime ||
+      !body.preferredTime || typeof body.preferredTime !== "object" ||
       !body.groupSize ||
       !body.ageGroup ||
       !body.purpose

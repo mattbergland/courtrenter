@@ -262,7 +262,7 @@ export default function RequestForm() {
   const [courtsNeeded, setCourtsNeeded] = useState(2);
 
   const [selectedDates, setSelectedDates] = useState<string[]>([]);
-  const [preferredTime, setPreferredTime] = useState(timeSlots[0]);
+  const [dateTimes, setDateTimes] = useState<Record<string, string>>({});
 
   const [ageGroup, setAgeGroup] = useState<AgeGroup | null>(null);
   const [purpose, setPurpose] = useState<RentalPurpose | null>(null);
@@ -292,9 +292,22 @@ export default function RequestForm() {
   const dateOptions = useMemo(() => selectedDates, [selectedDates]);
 
   function toggleDate(dateStr: string) {
-    setSelectedDates((prev) =>
-      prev.includes(dateStr) ? prev.filter((d) => d !== dateStr) : [...prev, dateStr]
-    );
+    setSelectedDates((prev) => {
+      if (prev.includes(dateStr)) {
+        setDateTimes((t) => {
+          const next = { ...t };
+          delete next[dateStr];
+          return next;
+        });
+        return prev.filter((d) => d !== dateStr);
+      }
+      setDateTimes((t) => ({ ...t, [dateStr]: timeSlots[0] }));
+      return [...prev, dateStr];
+    });
+  }
+
+  function setTimeForDate(dateStr: string, time: string) {
+    setDateTimes((t) => ({ ...t, [dateStr]: time }));
   }
 
   function canGoNext(): boolean {
@@ -331,7 +344,7 @@ export default function RequestForm() {
       courtRequest,
       courtsNeeded: courtRequest === "multiple" ? Math.max(2, courtsNeeded) : 1,
       dateOptions,
-      preferredTime,
+      preferredTime: dateTimes,
       groupSize,
       ageGroup,
       purpose,
@@ -441,20 +454,35 @@ export default function RequestForm() {
 
             <CalendarPicker selected={selectedDates} onToggle={toggleDate} max={3} />
 
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">Preferred time</label>
-              <select
-                value={preferredTime}
-                onChange={(e) => setPreferredTime(e.target.value)}
-                className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent bg-white"
-              >
-                {timeSlots.map((slot) => (
-                  <option key={slot} value={slot}>
-                    {slot}
-                  </option>
-                ))}
-              </select>
-            </div>
+            {selectedDates.length > 0 && (
+              <div className="space-y-3">
+                <label className="block text-sm font-medium text-gray-700">Preferred time for each date</label>
+                {selectedDates.map((d) => {
+                  const dt = new Date(d + "T00:00:00");
+                  const label = dt.toLocaleDateString("en-US", {
+                    weekday: "short",
+                    month: "short",
+                    day: "numeric",
+                  });
+                  return (
+                    <div key={d} className="flex items-center gap-3">
+                      <span className="text-sm font-medium text-gray-700 min-w-[100px]">{label}</span>
+                      <select
+                        value={dateTimes[d] || timeSlots[0]}
+                        onChange={(e) => setTimeForDate(d, e.target.value)}
+                        className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent bg-white"
+                      >
+                        {timeSlots.map((slot) => (
+                          <option key={slot} value={slot}>
+                            {slot}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
         )}
 
@@ -658,13 +686,24 @@ export default function RequestForm() {
                     : ""}
                 </span>
               </div>
-              <div className="flex justify-between gap-4">
-                <span className="text-gray-500">Dates</span>
-                <span className="text-gray-900 font-medium text-right">{dateOptions.join(", ")}</span>
-              </div>
-              <div className="flex justify-between gap-4">
-                <span className="text-gray-500">Time</span>
-                <span className="text-gray-900 font-medium text-right">{preferredTime}</span>
+              <div className="space-y-1">
+                <span className="text-gray-500">Dates & times</span>
+                {dateOptions.map((d) => {
+                  const dt = new Date(d + "T00:00:00");
+                  const lbl = dt.toLocaleDateString("en-US", {
+                    weekday: "short",
+                    month: "short",
+                    day: "numeric",
+                  });
+                  return (
+                    <div key={d} className="flex justify-between gap-4 pl-2">
+                      <span className="text-gray-700 text-sm">{lbl}</span>
+                      <span className="text-gray-900 font-medium text-right text-sm">
+                        {dateTimes[d] || timeSlots[0]}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
               <div className="flex justify-between gap-4">
                 <span className="text-gray-500">Group size</span>

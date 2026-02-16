@@ -28,7 +28,7 @@ export interface Lead {
   courtRequest: CourtRequest;
   courtsNeeded: number;
   dateOptions: string[];
-  preferredTime: string;
+  preferredTime: Record<string, string>;
   groupSize: number;
   ageGroup: AgeGroup;
   purpose: RentalPurpose;
@@ -49,7 +49,7 @@ export interface LeadRequest {
   courtRequest: CourtRequest;
   courtsNeeded: number;
   dateOptions: string[];
-  preferredTime: string;
+  preferredTime: Record<string, string>;
   groupSize: number;
   ageGroup: AgeGroup;
   purpose: RentalPurpose;

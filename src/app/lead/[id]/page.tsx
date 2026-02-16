@@ -13,7 +13,7 @@ interface UnlockedLead {
   courtRequest: CourtRequest;
   courtsNeeded: number;
   dateOptions: string[];
-  preferredTime: string;
+  preferredTime: Record<string, string> | string;
   groupSize: number;
   ageGroup: AgeGroup;
   purpose: RentalPurpose;
@@ -159,13 +159,26 @@ export default function LeadDetailPage() {
                     {lead.courtRequest === "multiple" ? ` (${lead.courtsNeeded})` : ""}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-gray-500">Dates</span>
-                  <span className="text-sm font-medium text-gray-900">{lead.dateOptions.join(", ")}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-sm text-gray-500">Preferred Time</span>
-                  <span className="text-sm font-medium text-gray-900">{lead.preferredTime}</span>
+                <div className="space-y-1">
+                  <span className="text-sm text-gray-500">Dates & Times</span>
+                  {lead.dateOptions.map((d) => {
+                    const dt = new Date(d + "T00:00:00");
+                    const lbl = dt.toLocaleDateString("en-US", {
+                      weekday: "short",
+                      month: "short",
+                      day: "numeric",
+                    });
+                    const time =
+                      typeof lead.preferredTime === "object"
+                        ? lead.preferredTime[d] || "TBD"
+                        : lead.preferredTime;
+                    return (
+                      <div key={d} className="flex justify-between pl-2">
+                        <span className="text-sm text-gray-700">{lbl}</span>
+                        <span className="text-sm font-medium text-gray-900">{time}</span>
+                      </div>
+                    );
+                  })}
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-gray-500">Age Group</span>

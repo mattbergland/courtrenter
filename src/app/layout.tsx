@@ -50,7 +50,8 @@ export default function RootLayout({
               href="/request"
               className="text-sm font-medium bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
             >
-              Request a Basketball Court
+              <span className="hidden sm:inline">Request a Basketball Court</span>
+              <span className="sm:hidden">Request Court</span>
             </Link>
           </div>
         </header>

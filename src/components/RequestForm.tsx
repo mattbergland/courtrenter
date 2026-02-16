@@ -88,7 +88,7 @@ function CalendarPicker({
         </button>
       </div>
 
-      <div className="grid grid-cols-7 gap-1 mb-1">
+      <div className="grid grid-cols-7 gap-0.5 sm:gap-1 mb-1">
         {DAYS.map((d) => (
           <div key={d} className="text-center text-xs font-medium text-gray-400 py-1">
             {d}
@@ -96,7 +96,7 @@ function CalendarPicker({
         ))}
       </div>
 
-      <div className="grid grid-cols-7 gap-1">
+      <div className="grid grid-cols-7 gap-0.5 sm:gap-1">
         {cells.map((day, i) => {
           if (day === null) return <div key={`e-${i}`} />;
           const str = toStr(day);
@@ -115,7 +115,7 @@ function CalendarPicker({
               type="button"
               disabled={disabled}
               onClick={() => onToggle(str)}
-              className={`aspect-square flex items-center justify-center rounded-xl text-sm font-medium transition-all cursor-pointer
+              className={`aspect-square flex items-center justify-center rounded-lg sm:rounded-xl text-sm font-medium transition-all cursor-pointer min-h-[40px] sm:min-h-0
                 ${isSel ? "bg-gray-900 text-white shadow-sm" : ""}
                 ${!isSel && !disabled ? "hover:bg-gray-100 text-gray-800" : ""}
                 ${disabled ? "text-gray-300 cursor-not-allowed" : ""}
@@ -387,11 +387,11 @@ export default function RequestForm() {
         </div>
       </div>
 
-      <div className="border border-gray-200 rounded-2xl p-6">
+      <div className="border border-gray-200 rounded-2xl p-4 sm:p-6">
         {step === 0 && (
           <div className="space-y-4">
             <div>
-              <h2 className="text-xl font-semibold text-gray-900">What kind of court do you need?</h2>
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-900">What kind of court do you need?</h2>
               <p className="text-sm text-gray-500 mt-1">
                 Pick one — we&apos;ll match you to the right gyms and rec centers.
               </p>
@@ -446,7 +446,7 @@ export default function RequestForm() {
         {step === 1 && (
           <div className="space-y-5">
             <div>
-              <h2 className="text-xl font-semibold text-gray-900">What dates could work?</h2>
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-900">What dates could work?</h2>
               <p className="text-sm text-gray-500 mt-1">
                 Tap up to 3 dates. More flexibility = more matches.
               </p>
@@ -465,12 +465,12 @@ export default function RequestForm() {
                     day: "numeric",
                   });
                   return (
-                    <div key={d} className="flex items-center gap-3">
-                      <span className="text-sm font-medium text-gray-700 min-w-[100px]">{label}</span>
+                    <div key={d} className="flex items-center gap-2 sm:gap-3">
+                      <span className="text-sm font-medium text-gray-700 min-w-[80px] sm:min-w-[100px]">{label}</span>
                       <select
                         value={dateTimes[d] || timeSlots[0]}
                         onChange={(e) => setTimeForDate(d, e.target.value)}
-                        className="flex-1 border border-gray-300 rounded-lg px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent bg-white"
+                        className="flex-1 border border-gray-300 rounded-lg px-2 sm:px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent bg-white"
                       >
                         {timeSlots.map((slot) => (
                           <option key={slot} value={slot}>
@@ -489,7 +489,7 @@ export default function RequestForm() {
         {step === 2 && (
           <div className="space-y-4">
             <div>
-              <h2 className="text-xl font-semibold text-gray-900">Who is this for?</h2>
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Who is this for?</h2>
               <p className="text-sm text-gray-500 mt-1">Helps match you to the right type of facility.</p>
             </div>
 
@@ -513,7 +513,7 @@ export default function RequestForm() {
         {step === 3 && (
           <div className="space-y-4">
             <div>
-              <h2 className="text-xl font-semibold text-gray-900">What&apos;s the purpose?</h2>
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-900">What&apos;s the purpose?</h2>
               <p className="text-sm text-gray-500 mt-1">So venues can quote you correctly.</p>
             </div>
 
@@ -537,7 +537,7 @@ export default function RequestForm() {
         {step === 4 && (
           <div className="space-y-5">
             <div>
-              <h2 className="text-xl font-semibold text-gray-900">Anything else we should know?</h2>
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Anything else we should know?</h2>
               <p className="text-sm text-gray-500 mt-1">Optional, but it helps venues respond faster.</p>
             </div>
 
@@ -606,7 +606,7 @@ export default function RequestForm() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
               </div>
-              <h2 className="text-xl font-semibold text-gray-900">
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-900">
                 {venueCount > 0 ? `${venueCount} venues match your request` : "Venues match your request"}
               </h2>
               <p className="text-sm text-gray-500 mt-2 max-w-sm mx-auto">
@@ -619,7 +619,7 @@ export default function RequestForm() {
         {step === 6 && (
           <div className="space-y-4">
             <div>
-              <h2 className="text-xl font-semibold text-gray-900">Where should venues reach you?</h2>
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Where should venues reach you?</h2>
               <p className="text-sm text-gray-500 mt-1">
                 Almost done! Just need your contact info so venues can get back to you.
               </p>
@@ -673,7 +673,7 @@ export default function RequestForm() {
         {step === 7 && (
           <div className="space-y-4">
             <div>
-              <h2 className="text-xl font-semibold text-gray-900">Review & submit</h2>
+              <h2 className="text-lg sm:text-xl font-semibold text-gray-900">Review & submit</h2>
               <p className="text-sm text-gray-500 mt-1">Takes about 30 seconds for courts to start seeing it.</p>
             </div>
 
@@ -747,7 +747,7 @@ export default function RequestForm() {
           type="button"
           onClick={back}
           disabled={step === 0 || submitting}
-          className="flex-1 border border-gray-200 text-gray-700 font-medium py-3 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+          className="flex-1 border border-gray-200 text-gray-700 font-medium py-3.5 sm:py-3 rounded-lg hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer text-base sm:text-sm"
         >
           Back
         </button>
@@ -756,7 +756,7 @@ export default function RequestForm() {
             type="button"
             onClick={next}
             disabled={!canGoNext() || submitting}
-            className="flex-1 bg-gray-900 text-white font-medium py-3 rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+            className="flex-1 bg-gray-900 text-white font-medium py-3.5 sm:py-3 rounded-lg hover:bg-gray-800 transition-colors disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer text-base sm:text-sm"
           >
             Next
           </button>

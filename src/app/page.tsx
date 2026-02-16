@@ -25,12 +25,12 @@ export default function HomePage() {
             </svg>
             100% free for renters
           </div>
-          <h1 className="text-4xl sm:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
+          <h1 className="text-3xl sm:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
             Rent Basketball Courts
             <br />
             <span className="text-gray-400">in San Francisco</span>
           </h1>
-          <p className="mt-4 text-lg text-gray-500 max-w-xl mx-auto">
+          <p className="mt-3 sm:mt-4 text-base sm:text-lg text-gray-500 max-w-xl mx-auto">
             Fill out one quick form and your request is sent to all matching venues instantly. No calling around.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
@@ -86,7 +86,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="px-4 py-16">
+      <section className="px-4 py-10 sm:py-16">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">Courts in San Francisco</h2>
           <p className="text-sm text-gray-500 text-center mb-8">
@@ -105,7 +105,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="bg-gray-50 py-16 px-4">
+      <section className="bg-gray-50 py-10 sm:py-16 px-4">
         <div className="max-w-2xl mx-auto text-center">
           <h2 className="text-2xl font-bold text-gray-900">How It Works</h2>
           <div className="mt-8 grid grid-cols-1 sm:grid-cols-3 gap-8">

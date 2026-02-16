@@ -4,6 +4,163 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { AgeGroup, CourtRequest, LeadRequest, RentalPurpose, Sport } from "@/types/venue";
 
+const DAYS = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+function CalendarPicker({
+  selected,
+  onToggle,
+  max,
+}: {
+  selected: string[];
+  onToggle: (dateStr: string) => void;
+  max: number;
+}) {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const [viewYear, setViewYear] = useState(today.getFullYear());
+  const [viewMonth, setViewMonth] = useState(today.getMonth());
+
+  const firstDay = new Date(viewYear, viewMonth, 1).getDay();
+  const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+  const monthLabel = new Date(viewYear, viewMonth).toLocaleString("default", {
+    month: "long",
+    year: "numeric",
+  });
+
+  function prevMonth() {
+    if (viewMonth === 0) {
+      setViewYear((y) => y - 1);
+      setViewMonth(11);
+    } else {
+      setViewMonth((m) => m - 1);
+    }
+  }
+
+  function nextMonth() {
+    if (viewMonth === 11) {
+      setViewYear((y) => y + 1);
+      setViewMonth(0);
+    } else {
+      setViewMonth((m) => m + 1);
+    }
+  }
+
+  const canGoPrev =
+    viewYear > today.getFullYear() ||
+    (viewYear === today.getFullYear() && viewMonth > today.getMonth());
+
+  const cells: (number | null)[] = [];
+  for (let i = 0; i < firstDay; i++) cells.push(null);
+  for (let d = 1; d <= daysInMonth; d++) cells.push(d);
+
+  function toStr(day: number) {
+    const m = String(viewMonth + 1).padStart(2, "0");
+    const d = String(day).padStart(2, "0");
+    return `${viewYear}-${m}-${d}`;
+  }
+
+  function isPast(day: number) {
+    return new Date(viewYear, viewMonth, day) < today;
+  }
+
+  return (
+    <div className="select-none">
+      <div className="flex items-center justify-between mb-4">
+        <button
+          type="button"
+          onClick={prevMonth}
+          disabled={!canGoPrev}
+          className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed transition-colors cursor-pointer"
+        >
+          <svg className="w-5 h-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M15 19l-7-7 7-7" />
+          </svg>
+        </button>
+        <span className="text-base font-semibold text-gray-900">{monthLabel}</span>
+        <button
+          type="button"
+          onClick={nextMonth}
+          className="p-2 rounded-lg hover:bg-gray-100 transition-colors cursor-pointer"
+        >
+          <svg className="w-5 h-5 text-gray-700" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+        </button>
+      </div>
+
+      <div className="grid grid-cols-7 gap-1 mb-1">
+        {DAYS.map((d) => (
+          <div key={d} className="text-center text-xs font-medium text-gray-400 py-1">
+            {d}
+          </div>
+        ))}
+      </div>
+
+      <div className="grid grid-cols-7 gap-1">
+        {cells.map((day, i) => {
+          if (day === null) return <div key={`e-${i}`} />;
+          const str = toStr(day);
+          const isSel = selected.includes(str);
+          const past = isPast(day);
+          const atMax = selected.length >= max && !isSel;
+          const disabled = past || atMax;
+          const isToday =
+            day === today.getDate() &&
+            viewMonth === today.getMonth() &&
+            viewYear === today.getFullYear();
+
+          return (
+            <button
+              key={str}
+              type="button"
+              disabled={disabled}
+              onClick={() => onToggle(str)}
+              className={`aspect-square flex items-center justify-center rounded-xl text-sm font-medium transition-all cursor-pointer
+                ${isSel ? "bg-gray-900 text-white shadow-sm" : ""}
+                ${!isSel && !disabled ? "hover:bg-gray-100 text-gray-800" : ""}
+                ${disabled ? "text-gray-300 cursor-not-allowed" : ""}
+                ${isToday && !isSel ? "ring-1 ring-gray-300" : ""}
+              `}
+            >
+              {day}
+            </button>
+          );
+        })}
+      </div>
+
+      {selected.length > 0 && (
+        <div className="mt-4 flex flex-wrap gap-2">
+          {selected.map((d) => {
+            const dt = new Date(d + "T00:00:00");
+            const label = dt.toLocaleDateString("en-US", {
+              month: "short",
+              day: "numeric",
+              weekday: "short",
+            });
+            return (
+              <span
+                key={d}
+                className="inline-flex items-center gap-1.5 bg-gray-900 text-white text-xs font-medium px-3 py-1.5 rounded-full"
+              >
+                {label}
+                <button
+                  type="button"
+                  onClick={() => onToggle(d)}
+                  className="hover:bg-gray-700 rounded-full p-0.5 transition-colors cursor-pointer"
+                >
+                  <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+              </span>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
 const timeSlots = [
   "Morning (6am-12pm)",
   "Afternoon (12pm-5pm)",
@@ -104,9 +261,7 @@ export default function RequestForm() {
   const [courtRequest, setCourtRequest] = useState<CourtRequest | null>(null);
   const [courtsNeeded, setCourtsNeeded] = useState(2);
 
-  const [date1, setDate1] = useState("");
-  const [date2, setDate2] = useState("");
-  const [date3, setDate3] = useState("");
+  const [selectedDates, setSelectedDates] = useState<string[]>([]);
   const [preferredTime, setPreferredTime] = useState(timeSlots[0]);
 
   const [ageGroup, setAgeGroup] = useState<AgeGroup | null>(null);
@@ -134,10 +289,13 @@ export default function RequestForm() {
     fetchVenueCount();
   }, [fetchVenueCount]);
 
-  const dateOptions = useMemo(
-    () => [date1, date2, date3].map((d) => d.trim()).filter(Boolean),
-    [date1, date2, date3]
-  );
+  const dateOptions = useMemo(() => selectedDates, [selectedDates]);
+
+  function toggleDate(dateStr: string) {
+    setSelectedDates((prev) =>
+      prev.includes(dateStr) ? prev.filter((d) => d !== dateStr) : [...prev, dateStr]
+    );
+  }
 
   function canGoNext(): boolean {
     if (step === 0) return courtRequest !== null;
@@ -273,41 +431,15 @@ export default function RequestForm() {
         )}
 
         {step === 1 && (
-          <div className="space-y-4">
+          <div className="space-y-5">
             <div>
               <h2 className="text-xl font-semibold text-gray-900">What dates could work?</h2>
-              <p className="text-sm text-gray-500 mt-1">Add up to 3 options. More flexibility = more matches.</p>
+              <p className="text-sm text-gray-500 mt-1">
+                Tap up to 3 dates. More flexibility = more matches.
+              </p>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-              <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Option 1 *</label>
-                <input
-                  type="date"
-                  value={date1}
-                  onChange={(e) => setDate1(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Option 2</label>
-                <input
-                  type="date"
-                  value={date2}
-                  onChange={(e) => setDate2(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-medium text-gray-500 mb-1">Option 3</label>
-                <input
-                  type="date"
-                  value={date3}
-                  onChange={(e) => setDate3(e.target.value)}
-                  className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
-                />
-              </div>
-            </div>
+            <CalendarPicker selected={selectedDates} onToggle={toggleDate} max={3} />
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">Preferred time</label>

@@ -5,13 +5,11 @@ import Link from "next/link";
 import { Venue, Sport } from "@/types/venue";
 import { sportLabels } from "@/lib/venues-data";
 
-const SPORTS: Sport[] = ["basketball", "soccer", "tennis", "volleyball", "pickleball"];
-
 const emptyForm = {
   name: "",
   address: "",
   neighborhood: "",
-  sports: [] as Sport[],
+  sports: ["basketball"] as Sport[],
   description: "",
   priceRange: "",
   phone: "",
@@ -49,14 +47,6 @@ export default function AdminPage() {
     setTimeout(() => setMessage(""), 4000);
   }
 
-  function toggleSport(sport: Sport) {
-    setForm((prev) => ({
-      ...prev,
-      sports: prev.sports.includes(sport)
-        ? prev.sports.filter((s) => s !== sport)
-        : [...prev.sports, sport],
-    }));
-  }
 
   function startEdit(venue: Venue) {
     setEditingId(venue.id);
@@ -64,7 +54,7 @@ export default function AdminPage() {
       name: venue.name,
       address: venue.address,
       neighborhood: venue.neighborhood,
-      sports: [...venue.sports],
+      sports: ["basketball"],
       description: venue.description,
       priceRange: venue.priceRange,
       phone: venue.phone,
@@ -83,8 +73,8 @@ export default function AdminPage() {
   }
 
   async function handleSave() {
-    if (!form.name || form.sports.length === 0) {
-      showMessage("Name and at least one sport are required", "error");
+    if (!form.name) {
+      showMessage("Name is required", "error");
       return;
     }
 
@@ -94,7 +84,7 @@ export default function AdminPage() {
         const res = await fetch(`/api/venues/${editingId}`, {
           method: "PUT",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
+          body: JSON.stringify({ ...form, sports: ["basketball"] }),
         });
         if (!res.ok) throw new Error("Failed to update");
         showMessage(`Updated "${form.name}"`);
@@ -102,7 +92,7 @@ export default function AdminPage() {
         const res = await fetch("/api/venues", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(form),
+          body: JSON.stringify({ ...form, sports: ["basketball"] }),
         });
         if (!res.ok) throw new Error("Failed to add");
         showMessage(`Added "${form.name}"`);
@@ -241,22 +231,9 @@ export default function AdminPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Sports *</label>
-                <div className="flex flex-wrap gap-2">
-                  {SPORTS.map((sport) => (
-                    <button
-                      key={sport}
-                      type="button"
-                      onClick={() => toggleSport(sport)}
-                      className={`px-3 py-1.5 rounded-full text-sm font-medium transition-colors cursor-pointer ${
-                        form.sports.includes(sport)
-                          ? "bg-gray-900 text-white"
-                          : "bg-gray-100 text-gray-600 hover:bg-gray-200"
-                      }`}
-                    >
-                      {sportLabels[sport]}
-                    </button>
-                  ))}
+                <label className="block text-sm font-medium text-gray-700 mb-1">Sport</label>
+                <div className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm bg-gray-50 text-gray-700">
+                  Basketball
                 </div>
               </div>
 
@@ -350,7 +327,7 @@ export default function AdminPage() {
         <div className="mb-8 border border-gray-200 rounded-xl p-6">
           <h2 className="font-semibold text-gray-900 mb-2">Import from CSV</h2>
           <p className="text-sm text-gray-500 mb-3">
-            Upload a CSV file or paste CSV data. Required columns: <code className="bg-gray-100 px-1 rounded">name</code>, <code className="bg-gray-100 px-1 rounded">sports</code> (semicolon-separated).
+            Upload a CSV file or paste CSV data. Required columns: <code className="bg-gray-100 px-1 rounded">name</code>. Optional: <code className="bg-gray-100 px-1 rounded">sports</code> (if provided, use <code className="bg-gray-100 px-1 rounded">basketball</code>).
             Optional: <code className="bg-gray-100 px-1 rounded">address</code>, <code className="bg-gray-100 px-1 rounded">neighborhood</code>, <code className="bg-gray-100 px-1 rounded">description</code>, <code className="bg-gray-100 px-1 rounded">priceRange</code>, <code className="bg-gray-100 px-1 rounded">phone</code>, <code className="bg-gray-100 px-1 rounded">website</code>, <code className="bg-gray-100 px-1 rounded">indoor</code>, <code className="bg-gray-100 px-1 rounded">courtCount</code>.
           </p>
 
@@ -378,7 +355,7 @@ export default function AdminPage() {
           <textarea
             value={csvText}
             onChange={(e) => setCsvText(e.target.value)}
-            placeholder={`name,sports,address,neighborhood,priceRange,phone,indoor,courtCount\nMy Venue,basketball;soccer,123 Main St,SoMa,$50-100/hr,(415) 555-0000,true,2`}
+            placeholder={`name,sports,address,neighborhood,priceRange,phone,indoor,courtCount\nMy Venue,basketball,123 Main St,SoMa,$50-100/hr,(415) 555-0000,true,2`}
             rows={4}
             className="w-full border border-gray-200 rounded-lg px-3 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-gray-900 mb-3"
           />

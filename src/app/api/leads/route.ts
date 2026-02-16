@@ -6,7 +6,20 @@ export async function POST(request: Request) {
   try {
     const body = (await request.json()) as LeadRequest;
 
-    if (!body.renterName || !body.renterEmail || !body.renterPhone || !body.sport || !body.preferredDate) {
+    if (
+      !body.renterName ||
+      !body.renterEmail ||
+      !body.renterPhone ||
+      !body.sport ||
+      !body.courtRequest ||
+      !body.courtsNeeded ||
+      !Array.isArray(body.dateOptions) ||
+      body.dateOptions.length === 0 ||
+      !body.preferredTime ||
+      !body.groupSize ||
+      !body.ageGroup ||
+      !body.purpose
+    ) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 

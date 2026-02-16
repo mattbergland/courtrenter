@@ -1,4 +1,8 @@
-export type Sport = "basketball" | "soccer" | "tennis" | "volleyball" | "pickleball";
+export type Sport = "basketball";
+
+export type CourtRequest = "half" | "full" | "multiple";
+export type AgeGroup = "kids" | "teens" | "adults";
+export type RentalPurpose = "pickup" | "business" | "corporate" | "league" | "training" | "event";
 
 export interface Venue {
   id: string;
@@ -20,9 +24,15 @@ export interface Lead {
   renterEmail: string;
   renterPhone: string;
   sport: Sport;
-  preferredDate: string;
+  courtRequest: CourtRequest;
+  courtsNeeded: number;
+  dateOptions: string[];
   preferredTime: string;
   groupSize: number;
+  ageGroup: AgeGroup;
+  purpose: RentalPurpose;
+  amenities: string[];
+  amenitiesNotes: string;
   message: string;
   venueId: string | null;
   createdAt: string;
@@ -35,9 +45,15 @@ export interface LeadRequest {
   renterEmail: string;
   renterPhone: string;
   sport: Sport;
-  preferredDate: string;
+  courtRequest: CourtRequest;
+  courtsNeeded: number;
+  dateOptions: string[];
   preferredTime: string;
   groupSize: number;
+  ageGroup: AgeGroup;
+  purpose: RentalPurpose;
+  amenities: string[];
+  amenitiesNotes: string;
   message: string;
   venueId: string | null;
 }

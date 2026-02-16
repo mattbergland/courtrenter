@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { Venue } from "@/types/venue";
-import { sportLabels, sportEmoji } from "@/lib/venues-data";
 
 export default function VenueCard({ venue }: { venue: Venue }) {
   return (
@@ -15,17 +14,6 @@ export default function VenueCard({ venue }: { venue: Venue }) {
       </div>
 
       <p className="text-sm text-gray-500">{venue.neighborhood} &middot; {venue.address}</p>
-
-      <div className="flex flex-wrap gap-1.5">
-        {venue.sports.map((sport) => (
-          <span
-            key={sport}
-            className="text-xs font-medium bg-blue-50 text-blue-700 rounded-full px-2.5 py-1"
-          >
-            {sportEmoji[sport]} {sportLabels[sport]}
-          </span>
-        ))}
-      </div>
 
       <p className="text-sm text-gray-600 line-clamp-2">{venue.description}</p>
 

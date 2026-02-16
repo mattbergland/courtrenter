@@ -1,6 +1,6 @@
 import { Venue, Sport } from "@/types/venue";
 
-const VALID_SPORTS: Sport[] = ["basketball", "soccer", "tennis", "volleyball", "pickleball"];
+const VALID_SPORTS: Sport[] = ["basketball"];
 
 const seedVenues: Venue[] = [
   {
@@ -8,7 +8,7 @@ const seedVenues: Venue[] = [
     name: "Kezar Pavilion",
     address: "755 Stanyan St, San Francisco, CA 94117",
     neighborhood: "Haight-Ashbury",
-    sports: ["basketball", "volleyball"],
+    sports: ["basketball"],
     description: "Historic indoor gym in Golden Gate Park with full-size basketball courts. Popular for leagues and pickup games. Available for private rentals.",
     priceRange: "$75-150/hr",
     phone: "(415) 831-2774",
@@ -21,8 +21,8 @@ const seedVenues: Venue[] = [
     name: "Mission Recreation Center",
     address: "2450 Harrison St, San Francisco, CA 94110",
     neighborhood: "Mission District",
-    sports: ["basketball", "volleyball"],
-    description: "Community rec center with indoor gymnasium. Great for basketball rentals, volleyball leagues, and private events.",
+    sports: ["basketball"],
+    description: "Community rec center with indoor gymnasium. Great for basketball rentals and private events.",
     priceRange: "$50-100/hr",
     phone: "(415) 695-5012",
     website: "https://sfrecpark.org/facilities/facility/details/Mission-Recreation-Center-525",
@@ -47,8 +47,8 @@ const seedVenues: Venue[] = [
     name: "Potrero Hill Recreation Center",
     address: "801 Arkansas St, San Francisco, CA 94107",
     neighborhood: "Potrero Hill",
-    sports: ["basketball", "tennis"],
-    description: "Indoor gym and outdoor tennis courts with panoramic city views. Great neighborhood facility for court rentals.",
+    sports: ["basketball"],
+    description: "Indoor gym with panoramic city views. Great neighborhood facility for basketball court rentals.",
     priceRange: "$40-80/hr",
     phone: "(415) 695-5009",
     website: "https://sfrecpark.org/facilities/facility/details/Potrero-Hill-Recreation-Center-555",
@@ -60,8 +60,8 @@ const seedVenues: Venue[] = [
     name: "Moscone Recreation Center",
     address: "1800 Chestnut St, San Francisco, CA 94123",
     neighborhood: "Marina",
-    sports: ["basketball", "tennis"],
-    description: "Popular Marina district facility with indoor basketball and outdoor tennis courts. Walking distance from Chestnut Street shops.",
+    sports: ["basketball"],
+    description: "Popular Marina district facility with indoor basketball courts. Walking distance from Chestnut Street shops.",
     priceRange: "$50-100/hr",
     phone: "(415) 292-2006",
     website: "https://sfrecpark.org/facilities/facility/details/Moscone-Recreation-Center-530",
@@ -73,8 +73,8 @@ const seedVenues: Venue[] = [
     name: "Sunset Recreation Center",
     address: "2201 Lawton St, San Francisco, CA 94122",
     neighborhood: "Sunset",
-    sports: ["basketball", "volleyball"],
-    description: "Spacious indoor gym in the Sunset with basketball and volleyball courts. Family-friendly facility with ample parking nearby.",
+    sports: ["basketball"],
+    description: "Spacious indoor gym in the Sunset with basketball courts. Family-friendly facility with ample parking nearby.",
     priceRange: "$40-80/hr",
     phone: "(415) 753-7098",
     website: "https://sfrecpark.org/facilities/facility/details/Sunset-Recreation-Center-596",
@@ -86,8 +86,8 @@ const seedVenues: Venue[] = [
     name: "Glen Park Recreation Center",
     address: "70 Elk St, San Francisco, CA 94131",
     neighborhood: "Glen Park",
-    sports: ["basketball", "tennis"],
-    description: "Neighborhood rec center with indoor basketball court and outdoor tennis. Quiet area, easy BART access from Glen Park station.",
+    sports: ["basketball"],
+    description: "Neighborhood rec center with indoor basketball court. Quiet area, easy BART access from Glen Park station.",
     priceRange: "$40-80/hr",
     phone: "(415) 239-4514",
     website: "https://sfrecpark.org/facilities/facility/details/Glen-Park-Recreation-Center-430",
@@ -112,8 +112,8 @@ const seedVenues: Venue[] = [
     name: "Balboa Park Gymnasium",
     address: "60 San Jose Ave, San Francisco, CA 94110",
     neighborhood: "Excelsior",
-    sports: ["basketball", "volleyball", "pickleball"],
-    description: "Large indoor gymnasium adjacent to Balboa Park. Multiple courts available for basketball, volleyball, and the new pickleball program.",
+    sports: ["basketball"],
+    description: "Large indoor gymnasium adjacent to Balboa Park. Multiple courts available for basketball.",
     priceRange: "$50-100/hr",
     phone: "(415) 337-4705",
     website: "https://sfrecpark.org/facilities/facility/details/Balboa-Park-395",
@@ -121,25 +121,12 @@ const seedVenues: Venue[] = [
     courtCount: 2,
   },
   {
-    id: "golden-gate-park-tennis",
-    name: "Golden Gate Park Tennis Center",
-    address: "790 John F Kennedy Dr, San Francisco, CA 94118",
-    neighborhood: "Golden Gate Park",
-    sports: ["tennis", "pickleball"],
-    description: "21 outdoor courts in the heart of Golden Gate Park, including dedicated pickleball courts. The premier public tennis facility in SF.",
-    priceRange: "$10-20/hr per court",
-    phone: "(415) 831-2700",
-    website: "https://sfrecpark.org/facilities/facility/details/Golden-Gate-Park-Tennis-Center-433",
-    indoor: false,
-    courtCount: 21,
-  },
-  {
     id: "garfield-square",
     name: "Garfield Square Recreation Center",
     address: "1197 26th St, San Francisco, CA 94107",
     neighborhood: "Mission District",
-    sports: ["basketball", "soccer"],
-    description: "Active community facility with indoor basketball and adjacent soccer-friendly outdoor field. Bilingual staff.",
+    sports: ["basketball"],
+    description: "Active community facility with indoor basketball court. Bilingual staff.",
     priceRange: "$40-80/hr",
     phone: "(415) 695-5006",
     website: "https://sfrecpark.org/facilities/facility/details/Garfield-Square-427",
@@ -151,38 +138,12 @@ const seedVenues: Venue[] = [
     name: "Crocker Amazon Playground & Fields",
     address: "799 Moscow St, San Francisco, CA 94112",
     neighborhood: "Excelsior",
-    sports: ["soccer", "basketball"],
-    description: "Large outdoor soccer fields and basketball courts. One of the best outdoor facilities in the city for field sports.",
+    sports: ["basketball"],
+    description: "Large outdoor basketball courts. One of the best outdoor facilities in the city.",
     priceRange: "$50-150/hr",
     phone: "(415) 337-4704",
     website: "https://sfrecpark.org/facilities/facility/details/Crocker-Amazon-Playground-411",
     indoor: false,
-    courtCount: 4,
-  },
-  {
-    id: "beach-chalet-fields",
-    name: "Beach Chalet Athletic Fields",
-    address: "1360 John F Kennedy Dr, San Francisco, CA 94121",
-    neighborhood: "Outer Richmond",
-    sports: ["soccer"],
-    description: "Premium synthetic turf soccer fields on the western edge of Golden Gate Park. Lighted for evening play. Popular for adult leagues.",
-    priceRange: "$100-200/hr",
-    phone: "(415) 831-2700",
-    website: "https://sfrecpark.org/facilities/facility/details/Beach-Chalet-Athletic-Fields-397",
-    indoor: false,
-    courtCount: 3,
-  },
-  {
-    id: "bay-club-sf",
-    name: "Bay Club SF Tennis",
-    address: "150 Folsom St, San Francisco, CA 94105",
-    neighborhood: "SoMa",
-    sports: ["tennis", "pickleball"],
-    description: "Premium private club with indoor tennis and pickleball courts in SoMa. Guest passes available for court rentals. Top-tier facilities.",
-    priceRange: "$80-150/hr",
-    phone: "(415) 495-2500",
-    website: "https://www.bayclubs.com/sf-tennis",
-    indoor: true,
     courtCount: 4,
   },
 ];
@@ -242,7 +203,12 @@ export function parseVenueCSV(csvText: string): Venue[] {
     if (!name) continue;
 
     const sportsRaw = (row["sports"] || "").split(";").map((s) => s.trim().toLowerCase()).filter(Boolean);
-    const sports = sportsRaw.filter((s) => VALID_SPORTS.includes(s as Sport)) as Sport[];
+
+    const sports: Sport[] =
+      sportsRaw.length === 0
+        ? ["basketball"]
+        : (sportsRaw.filter((s) => VALID_SPORTS.includes(s as Sport)) as Sport[]);
+
     if (sports.length === 0) continue;
 
     const venue: Venue = {
@@ -304,18 +270,10 @@ export function importVenuesFromCSV(csvText: string): { added: number; errors: s
 
 export const sportLabels: Record<string, string> = {
   basketball: "Basketball",
-  soccer: "Soccer",
-  tennis: "Tennis",
-  volleyball: "Volleyball",
-  pickleball: "Pickleball",
 };
 
 export const sportEmoji: Record<string, string> = {
   basketball: "\uD83C\uDFC0",
-  soccer: "\u26BD",
-  tennis: "\uD83C\uDFBE",
-  volleyball: "\uD83C\uDFD0",
-  pickleball: "\uD83C\uDFD3",
 };
 
 export function getVenueById(id: string): Venue | undefined {

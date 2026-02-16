@@ -3,17 +3,22 @@
 import { useState } from "react";
 import { useParams, useSearchParams } from "next/navigation";
 import Link from "next/link";
-import { sportLabels } from "@/lib/venues-data";
-import { Sport } from "@/types/venue";
+import { AgeGroup, CourtRequest, RentalPurpose } from "@/types/venue";
 
 interface UnlockedLead {
   renterName: string;
   renterEmail: string;
   renterPhone: string;
-  sport: Sport;
-  preferredDate: string;
+  sport: string;
+  courtRequest: CourtRequest;
+  courtsNeeded: number;
+  dateOptions: string[];
   preferredTime: string;
   groupSize: number;
+  ageGroup: AgeGroup;
+  purpose: RentalPurpose;
+  amenities: string[];
+  amenitiesNotes: string;
   message: string;
 }
 
@@ -57,7 +62,7 @@ export default function LeadDetailPage() {
     <div className="py-12 px-4">
       <div className="max-w-lg mx-auto">
         <Link href="/" className="text-sm text-gray-400 hover:text-gray-600 transition-colors">
-          &larr; Back to venues
+          &larr; Back to courts
         </Link>
 
         <h1 className="mt-4 text-2xl font-bold text-gray-900">Renter Lead</h1>
@@ -91,15 +96,15 @@ export default function LeadDetailPage() {
                 </div>
                 <hr className="border-gray-100" />
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-500">Sport</span>
+                  <span className="text-sm text-gray-500">Court</span>
                   <span className="text-sm text-gray-600">Visible after unlock</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-500">Date</span>
+                  <span className="text-sm text-gray-500">Dates</span>
                   <span className="text-sm text-gray-600">Visible after unlock</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-500">Group Size</span>
+                  <span className="text-sm text-gray-500">Purpose</span>
                   <span className="text-sm text-gray-600">Visible after unlock</span>
                 </div>
               </div>
@@ -148,27 +153,55 @@ export default function LeadDetailPage() {
                 </div>
                 <hr className="border-green-200" />
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-500">Sport</span>
-                  <span className="text-sm font-medium text-gray-900">{sportLabels[lead.sport]}</span>
+                  <span className="text-sm text-gray-500">Court</span>
+                  <span className="text-sm font-medium text-gray-900">
+                    {lead.courtRequest}
+                    {lead.courtRequest === "multiple" ? ` (${lead.courtsNeeded})` : ""}
+                  </span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-sm text-gray-500">Preferred Date</span>
-                  <span className="text-sm font-medium text-gray-900">{lead.preferredDate}</span>
+                  <span className="text-sm text-gray-500">Dates</span>
+                  <span className="text-sm font-medium text-gray-900">{lead.dateOptions.join(", ")}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-sm text-gray-500">Preferred Time</span>
                   <span className="text-sm font-medium text-gray-900">{lead.preferredTime}</span>
                 </div>
                 <div className="flex justify-between">
+                  <span className="text-sm text-gray-500">Age Group</span>
+                  <span className="text-sm font-medium text-gray-900">{lead.ageGroup}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-sm text-gray-500">Purpose</span>
+                  <span className="text-sm font-medium text-gray-900">{lead.purpose}</span>
+                </div>
+                <div className="flex justify-between">
                   <span className="text-sm text-gray-500">Group Size</span>
                   <span className="text-sm font-medium text-gray-900">{lead.groupSize} people</span>
                 </div>
-                {lead.message && (
+
+                {(lead.amenities.length > 0 || lead.amenitiesNotes || lead.message) && (
                   <>
                     <hr className="border-green-200" />
-                    <div>
-                      <span className="text-sm text-gray-500 block mb-1">Message</span>
-                      <p className="text-sm text-gray-900">{lead.message}</p>
+                    <div className="space-y-2">
+                      {lead.amenities.length > 0 && (
+                        <div>
+                          <span className="text-sm text-gray-500 block mb-1">Amenities</span>
+                          <p className="text-sm text-gray-900">{lead.amenities.join(", ")}</p>
+                        </div>
+                      )}
+                      {lead.amenitiesNotes && (
+                        <div>
+                          <span className="text-sm text-gray-500 block mb-1">Amenities Notes</span>
+                          <p className="text-sm text-gray-900">{lead.amenitiesNotes}</p>
+                        </div>
+                      )}
+                      {lead.message && (
+                        <div>
+                          <span className="text-sm text-gray-500 block mb-1">Additional Notes</span>
+                          <p className="text-sm text-gray-900">{lead.message}</p>
+                        </div>
+                      )}
                     </div>
                   </>
                 )}

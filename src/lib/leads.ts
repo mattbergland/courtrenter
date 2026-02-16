@@ -20,9 +20,15 @@ export function createLead(request: LeadRequest): Lead {
     renterEmail: request.renterEmail,
     renterPhone: request.renterPhone,
     sport: request.sport,
-    preferredDate: request.preferredDate,
+    courtRequest: request.courtRequest,
+    courtsNeeded: request.courtsNeeded,
+    dateOptions: request.dateOptions,
     preferredTime: request.preferredTime,
     groupSize: request.groupSize,
+    ageGroup: request.ageGroup,
+    purpose: request.purpose,
+    amenities: request.amenities,
+    amenitiesNotes: request.amenitiesNotes,
     message: request.message,
     venueId: request.venueId,
     createdAt: new Date().toISOString(),
@@ -35,7 +41,9 @@ export function createLead(request: LeadRequest): Lead {
   console.log(`[LEAD CREATED] ID: ${id}`);
   console.log(`[EMAIL SIMULATION] Would send emails to ${matchedVenues.length} venues:`);
   matchedVenues.forEach((vid) => {
-    console.log(`  -> Venue ${vid}: "A renter wants to play ${request.sport} on ${request.preferredDate}. Unlock for $2.99: /lead/${id}?venue=${vid}"`);
+    console.log(
+      `  -> Venue ${vid}: "A renter wants a basketball court (${request.courtRequest}${request.courtRequest === "multiple" ? `, ${request.courtsNeeded} courts` : ""}) on ${request.dateOptions.join(", ")}. Unlock for $2.99: /lead/${id}?venue=${vid}"`
+    );
   });
 
   return lead;

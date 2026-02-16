@@ -9,20 +9,20 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "CourtRenter — Rent Sports Courts in San Francisco",
-  description: "Find and rent basketball courts, soccer fields, tennis courts, and more in San Francisco. Connect directly with venues.",
-  keywords: ["rent basketball court", "san francisco", "sports venue rental", "court rental SF", "gym rental", "courtrenter"],
+  title: "CourtRenter — Rent Basketball Courts in San Francisco",
+  description: "Find and rent basketball courts in San Francisco. Connect directly with gyms and rec centers for your team, league, or event.",
+  keywords: ["rent basketball court", "san francisco", "basketball court rental", "court rental SF", "gym rental", "courtrenter", "basketball sf"],
   metadataBase: new URL("https://courtrenter.com"),
   openGraph: {
-    title: "CourtRenter — Rent Sports Courts in San Francisco",
-    description: "Find and rent basketball courts, soccer fields, tennis courts, and more in San Francisco.",
+    title: "CourtRenter — Rent Basketball Courts in San Francisco",
+    description: "Find and rent basketball courts in San Francisco. Connect directly with gyms and rec centers.",
     type: "website",
     siteName: "CourtRenter",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CourtRenter — Rent Sports Courts in San Francisco",
-    description: "Find and rent basketball courts, soccer fields, tennis courts, and more in San Francisco.",
+    title: "CourtRenter — Rent Basketball Courts in San Francisco",
+    description: "Find and rent basketball courts in San Francisco. Connect directly with gyms and rec centers.",
   },
 };
 
@@ -50,7 +50,7 @@ export default function RootLayout({
               href="/request"
               className="text-sm font-medium bg-gray-900 text-white px-4 py-2 rounded-lg hover:bg-gray-800 transition-colors"
             >
-              Request a Court
+              Request a Basketball Court
             </Link>
           </div>
         </header>
@@ -60,7 +60,7 @@ export default function RootLayout({
         <footer className="border-t border-gray-100 py-8">
           <div className="max-w-5xl mx-auto px-4 text-center">
             <p className="text-sm text-gray-400">
-              CourtRenter &middot; Helping you find the right court in San Francisco
+              CourtRenter &middot; Helping you find basketball courts in San Francisco
             </p>
           </div>
         </footer>

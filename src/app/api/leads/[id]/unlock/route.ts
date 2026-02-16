@@ -33,9 +33,15 @@ export async function POST(
       renterEmail: lead.renterEmail,
       renterPhone: lead.renterPhone,
       sport: lead.sport,
-      preferredDate: lead.preferredDate,
+      courtRequest: lead.courtRequest,
+      courtsNeeded: lead.courtsNeeded,
+      dateOptions: lead.dateOptions,
       preferredTime: lead.preferredTime,
       groupSize: lead.groupSize,
+      ageGroup: lead.ageGroup,
+      purpose: lead.purpose,
+      amenities: lead.amenities,
+      amenitiesNotes: lead.amenitiesNotes,
       message: lead.message,
     });
   } catch {

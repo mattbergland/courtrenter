@@ -2,7 +2,7 @@
 
 import { sportLabels, sportEmoji } from "@/lib/venues-data";
 
-const allSports = ["all", "basketball", "soccer", "tennis", "volleyball", "pickleball"] as const;
+const allSports = ["basketball"] as const;
 
 export default function SportFilter({
   selected,
@@ -23,7 +23,7 @@ export default function SportFilter({
               : "bg-gray-100 text-gray-600 hover:bg-gray-200"
           }`}
         >
-          {sport === "all" ? "All Sports" : `${sportEmoji[sport]} ${sportLabels[sport]}`}
+          {`${sportEmoji[sport]} ${sportLabels[sport]}`}
         </button>
       ))}
     </div>

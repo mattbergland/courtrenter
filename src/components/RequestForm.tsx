@@ -275,6 +275,7 @@ export default function RequestForm() {
   const [renterName, setRenterName] = useState("");
   const [renterPhone, setRenterPhone] = useState("");
   const [renterEmail, setRenterEmail] = useState("");
+  const [emailOptIn, setEmailOptIn] = useState(true);
 
   const [venueCount, setVenueCount] = useState(0);
 
@@ -359,6 +360,7 @@ export default function RequestForm() {
       amenitiesNotes,
       message,
       venueId: venueId || null,
+      emailOptIn,
     };
 
     setSubmitting(true);
@@ -675,6 +677,18 @@ export default function RequestForm() {
                 className="w-full border border-gray-300 rounded-lg px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent"
               />
             </div>
+
+            <label className="flex items-start gap-3 cursor-pointer">
+              <input
+                type="checkbox"
+                checked={emailOptIn}
+                onChange={(e) => setEmailOptIn(e.target.checked)}
+                className="mt-0.5 h-4 w-4 rounded border-gray-300 text-gray-900 focus:ring-gray-900 cursor-pointer"
+              />
+              <span className="text-sm text-gray-600">
+                Send me updates about new venues, specials, and deals
+              </span>
+            </label>
 
             <div className="flex items-start gap-2 bg-gray-50 rounded-lg p-3">
               <svg className="w-4 h-4 text-gray-400 mt-0.5 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>

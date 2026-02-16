@@ -36,6 +36,7 @@ export interface Lead {
   amenitiesNotes: string;
   message: string;
   venueId: string | null;
+  emailOptIn: boolean;
   createdAt: string;
   matchedVenueIds: string[];
   unlockedByVenueIds: string[];
@@ -57,4 +58,5 @@ export interface LeadRequest {
   amenitiesNotes: string;
   message: string;
   venueId: string | null;
+  emailOptIn: boolean;
 }

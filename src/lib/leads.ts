@@ -1,5 +1,6 @@
 import { Lead, LeadRequest } from "@/types/venue";
 import { getVenuesBySport } from "./venues-data";
+import { sendRenterConfirmation } from "./email";
 
 const leads = new Map<string, Lead>();
 
@@ -31,6 +32,7 @@ export function createLead(request: LeadRequest): Lead {
     amenitiesNotes: request.amenitiesNotes,
     message: request.message,
     venueId: request.venueId,
+    emailOptIn: request.emailOptIn,
     createdAt: new Date().toISOString(),
     matchedVenueIds: matchedVenues,
     unlockedByVenueIds: [],
@@ -39,7 +41,19 @@ export function createLead(request: LeadRequest): Lead {
   leads.set(id, lead);
 
   console.log(`[LEAD CREATED] ID: ${id}`);
-  console.log(`[EMAIL SIMULATION] Would send emails to ${matchedVenues.length} venues:`);
+
+  sendRenterConfirmation({
+    to: request.renterEmail,
+    renterName: request.renterName,
+    courtRequest: request.courtRequest,
+    matchedCount: matchedVenues.length,
+  });
+
+  if (request.emailOptIn) {
+    console.log(`[OPT-IN] ${request.renterEmail} subscribed to new venues & specials`);
+  }
+
+  console.log(`[VENUE NOTIFICATIONS] Would send emails to ${matchedVenues.length} venues (pending venue email setup):`);
   matchedVenues.forEach((vid) => {
     console.log(
       `  -> Venue ${vid}: "A renter wants a basketball court (${request.courtRequest}${request.courtRequest === "multiple" ? `, ${request.courtsNeeded} courts` : ""}) on ${request.dateOptions.join(", ")}. Unlock for $2.99: /lead/${id}?venue=${vid}"`

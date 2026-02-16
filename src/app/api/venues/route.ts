@@ -3,7 +3,8 @@ import { getAllVenues, addVenue } from "@/lib/venues-data";
 import { Sport } from "@/types/venue";
 
 export async function GET() {
-  return NextResponse.json(getAllVenues());
+  const venues = await getAllVenues();
+  return NextResponse.json(venues);
 }
 
 export async function POST(request: Request) {
@@ -17,7 +18,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const venue = addVenue({
+    const venue = await addVenue({
       name: body.name,
       address: body.address || "",
       neighborhood: body.neighborhood || "",

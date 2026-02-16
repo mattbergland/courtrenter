@@ -23,7 +23,7 @@ export async function POST(request: Request) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
     }
 
-    const lead = createLead(body);
+    const lead = await createLead(body);
 
     return NextResponse.json({ id: lead.id, matchedVenues: lead.matchedVenueIds.length });
   } catch {

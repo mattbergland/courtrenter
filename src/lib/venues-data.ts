@@ -1,4 +1,5 @@
 import { Venue, Sport } from "@/types/venue";
+import { supabase } from "./supabase";
 
 const VALID_SPORTS: Sport[] = ["basketball"];
 
@@ -148,14 +149,70 @@ const seedVenues: Venue[] = [
   },
 ];
 
+const useDb = !!(process.env.SUPABASE_URL && (process.env.SUPABASE_SERVICE_KEY || process.env.SUPABASE_KEY));
+
+interface DbVenue {
+  id: string;
+  name: string;
+  address: string;
+  neighborhood: string;
+  sports: string[];
+  description: string;
+  price_range: string;
+  phone: string;
+  website: string;
+  indoor: boolean;
+  court_count: number;
+  image_url: string;
+}
+
+function toVenue(row: DbVenue): Venue {
+  return {
+    id: row.id,
+    name: row.name,
+    address: row.address,
+    neighborhood: row.neighborhood,
+    sports: row.sports as Sport[],
+    description: row.description,
+    priceRange: row.price_range,
+    phone: row.phone,
+    website: row.website,
+    indoor: row.indoor,
+    courtCount: row.court_count,
+    imageUrl: row.image_url || undefined,
+  };
+}
+
+function toDbRow(venue: Venue) {
+  return {
+    id: venue.id,
+    name: venue.name,
+    address: venue.address,
+    neighborhood: venue.neighborhood,
+    sports: venue.sports,
+    description: venue.description,
+    price_range: venue.priceRange,
+    phone: venue.phone,
+    website: venue.website,
+    indoor: venue.indoor,
+    court_count: venue.courtCount,
+    image_url: venue.imageUrl || "",
+  };
+}
+
 const venueStore = new Map<string, Venue>();
 seedVenues.forEach((v) => venueStore.set(v.id, v));
 
-export function getAllVenues(): Venue[] {
+export async function getAllVenues(): Promise<Venue[]> {
+  if (useDb) {
+    const { data, error } = await supabase.from("venues").select("*").order("name");
+    if (error) { console.error("[DB] getAllVenues error:", error); return []; }
+    return (data as DbVenue[]).map(toVenue);
+  }
   return Array.from(venueStore.values());
 }
 
-export const venues = getAllVenues();
+export const venues = seedVenues;
 
 function slugify(name: string): string {
   return name
@@ -164,14 +221,28 @@ function slugify(name: string): string {
     .replace(/^-|-$/g, "");
 }
 
-export function addVenue(data: Omit<Venue, "id"> & { id?: string }): Venue {
+export async function addVenue(data: Omit<Venue, "id"> & { id?: string }): Promise<Venue> {
   const id = data.id || slugify(data.name);
   const venue: Venue = { ...data, id };
+  if (useDb) {
+    const { error } = await supabase.from("venues").upsert(toDbRow(venue));
+    if (error) { console.error("[DB] addVenue error:", error); throw error; }
+  }
   venueStore.set(id, venue);
   return venue;
 }
 
-export function updateVenue(id: string, data: Partial<Omit<Venue, "id">>): Venue | null {
+export async function updateVenue(id: string, data: Partial<Omit<Venue, "id">>): Promise<Venue | null> {
+  if (useDb) {
+    const { data: rows, error } = await supabase.from("venues").select("*").eq("id", id).limit(1);
+    if (error || !rows?.length) return null;
+    const existing = toVenue(rows[0] as DbVenue);
+    const updated = { ...existing, ...data };
+    const { error: upErr } = await supabase.from("venues").update(toDbRow(updated)).eq("id", id);
+    if (upErr) { console.error("[DB] updateVenue error:", upErr); return null; }
+    venueStore.set(id, updated);
+    return updated;
+  }
   const existing = venueStore.get(id);
   if (!existing) return null;
   const updated = { ...existing, ...data };
@@ -179,7 +250,11 @@ export function updateVenue(id: string, data: Partial<Omit<Venue, "id">>): Venue
   return updated;
 }
 
-export function deleteVenue(id: string): boolean {
+export async function deleteVenue(id: string): Promise<boolean> {
+  if (useDb) {
+    const { error } = await supabase.from("venues").delete().eq("id", id);
+    if (error) { console.error("[DB] deleteVenue error:", error); return false; }
+  }
   return venueStore.delete(id);
 }
 
@@ -251,19 +326,19 @@ function parseCSVLine(line: string): string[] {
   return result;
 }
 
-export function importVenuesFromCSV(csvText: string): { added: number; errors: string[] } {
+export async function importVenuesFromCSV(csvText: string): Promise<{ added: number; errors: string[] }> {
   const parsed = parseVenueCSV(csvText);
   const errors: string[] = [];
   let added = 0;
 
-  parsed.forEach((venue, idx) => {
+  for (let idx = 0; idx < parsed.length; idx++) {
     try {
-      addVenue(venue);
+      await addVenue(parsed[idx]);
       added++;
     } catch {
-      errors.push(`Row ${idx + 2}: Failed to import "${venue.name}"`);
+      errors.push(`Row ${idx + 2}: Failed to import "${parsed[idx].name}"`);
     }
-  });
+  }
 
   return { added, errors };
 }
@@ -276,12 +351,28 @@ export const sportEmoji: Record<string, string> = {
   basketball: "\uD83C\uDFC0",
 };
 
-export function getVenueById(id: string): Venue | undefined {
+export async function getVenueById(id: string): Promise<Venue | undefined> {
+  if (useDb) {
+    const { data, error } = await supabase.from("venues").select("*").eq("id", id).limit(1);
+    if (error || !data?.length) return undefined;
+    return toVenue(data[0] as DbVenue);
+  }
   return venueStore.get(id);
 }
 
-export function getVenuesBySport(sport: string): Venue[] {
-  const all = getAllVenues();
+export async function getVenuesBySport(sport: string): Promise<Venue[]> {
+  const all = await getAllVenues();
   if (sport === "all") return all;
   return all.filter((v) => v.sports.includes(sport as Sport));
+}
+
+export async function seedDatabase(): Promise<void> {
+  if (!useDb) return;
+  const { count, error } = await supabase.from("venues").select("*", { count: "exact", head: true });
+  if (error) { console.error("[DB] seedDatabase count error:", error); return; }
+  if (count && count > 0) return;
+  const rows = seedVenues.map(toDbRow);
+  const { error: insertErr } = await supabase.from("venues").insert(rows);
+  if (insertErr) { console.error("[DB] seedDatabase insert error:", insertErr); return; }
+  console.log(`[DB] Seeded ${rows.length} venues`);
 }

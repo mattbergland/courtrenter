@@ -13,7 +13,7 @@ export async function POST(
       return NextResponse.json({ error: "Missing venueId" }, { status: 400 });
     }
 
-    const lead = getLeadById(id);
+    const lead = await getLeadById(id);
     if (!lead) {
       return NextResponse.json({ error: "Lead not found" }, { status: 404 });
     }
@@ -22,7 +22,7 @@ export async function POST(
       return NextResponse.json({ error: "Venue not authorized for this lead" }, { status: 403 });
     }
 
-    const success = unlockLead(id, body.venueId);
+    const success = await unlockLead(id, body.venueId);
     if (!success) {
       return NextResponse.json({ error: "Failed to unlock" }, { status: 500 });
     }

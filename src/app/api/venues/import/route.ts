@@ -12,7 +12,7 @@ export async function POST(request: Request) {
       );
     }
 
-    const result = importVenuesFromCSV(body.csv);
+    const result = await importVenuesFromCSV(body.csv);
     return NextResponse.json(result);
   } catch {
     return NextResponse.json({ error: "Failed to import CSV" }, { status: 500 });

@@ -29,6 +29,7 @@ export async function sendRenterConfirmation({
       subject: "Your CourtRenter request has been submitted!",
       html: `
         <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 480px; margin: 0 auto; padding: 24px;">
+          <img src="https://courtrenter.com/favicon-192.png" alt="CourtRenter" width="48" height="48" style="border-radius: 50%; margin-bottom: 16px;" />
           <h2 style="color: #111827; margin-bottom: 8px;">Your request is live!</h2>
           <p style="color: #6b7280; font-size: 15px; line-height: 1.6;">
             Hi ${renterName}, your request for a <strong>${courtLabel}</strong> basketball court has been sent to
@@ -95,6 +96,7 @@ export async function sendVenueNotification({
       subject: `New court rental request: ${courtLabel}`,
       html: `
         <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 480px; margin: 0 auto; padding: 24px;">
+          <img src="https://courtrenter.com/favicon-192.png" alt="CourtRenter" width="48" height="48" style="border-radius: 50%; margin-bottom: 16px;" />
           <h2 style="color: #111827; margin-bottom: 8px;">New rental lead for ${venueName}</h2>
           <p style="color: #6b7280; font-size: 15px; line-height: 1.6;">
             A renter is looking for a <strong>${courtLabel}</strong> basketball court on <strong>${dateList}</strong>.

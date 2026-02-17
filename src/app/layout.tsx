@@ -13,6 +13,14 @@ export const metadata: Metadata = {
   description: "Find and rent basketball courts in San Francisco. Connect directly with gyms and rec centers for your team, league, or event.",
   keywords: ["rent basketball court", "san francisco", "basketball court rental", "court rental SF", "gym rental", "courtrenter", "basketball sf"],
   metadataBase: new URL("https://courtrenter.com"),
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "48x48" },
+      { url: "/favicon-32.png", sizes: "32x32", type: "image/png" },
+      { url: "/favicon-192.png", sizes: "192x192", type: "image/png" },
+    ],
+    apple: "/apple-touch-icon.png",
+  },
   openGraph: {
     title: "CourtRenter — Rent Basketball Courts in San Francisco",
     description: "Find and rent basketball courts in San Francisco. Connect directly with gyms and rec centers.",

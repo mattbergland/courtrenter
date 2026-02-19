@@ -45,8 +45,7 @@ export default function VenueCard({ venue }: { venue: Venue }) {
 
         <p className="text-sm text-gray-600 line-clamp-2">{venue.description}</p>
 
-        <div className="flex items-center justify-between mt-auto pt-2">
-          <span className="text-sm font-semibold text-gray-900">{venue.priceRange}</span>
+        <div className="flex items-center justify-end mt-auto pt-2">
           <span className="text-xs text-gray-400">
             {venue.courtCount} court{venue.courtCount > 1 ? "s" : ""}
           </span>

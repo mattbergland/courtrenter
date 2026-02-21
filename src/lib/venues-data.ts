@@ -747,10 +747,21 @@ function toDbRow(venue: Venue) {
 const venueStore = new Map<string, Venue>();
 seedVenues.forEach((v) => venueStore.set(v.id, v));
 
+let dbSynced = false;
+
+async function syncSeedToDb(): Promise<void> {
+  if (!useDb || dbSynced) return;
+  dbSynced = true;
+  const rows = seedVenues.map(toDbRow);
+  const { error } = await supabase.from("venues").upsert(rows);
+  if (error) { console.error("[DB] syncSeedToDb error:", error); }
+}
+
 export async function getAllVenues(): Promise<Venue[]> {
   if (useDb) {
+    await syncSeedToDb();
     const { data, error } = await supabase.from("venues").select("*").order("name");
-    if (error) { console.error("[DB] getAllVenues error:", error); return []; }
+    if (error) { console.error("[DB] getAllVenues error:", error); return Array.from(venueStore.values()); }
     return (data as DbVenue[]).map(toVenue);
   }
   return Array.from(venueStore.values());

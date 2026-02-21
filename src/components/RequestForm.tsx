@@ -766,7 +766,7 @@ export default function RequestForm() {
             </button>
 
             <p className="text-xs text-gray-400 text-center">
-              Your request will be shared with basketball courts in San Francisco.
+              Your request will be shared with basketball courts in the Bay Area.
               Venues pay a small fee to access your contact info and will reach out to you directly.
             </p>
           </div>

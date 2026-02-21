@@ -32,14 +32,14 @@ export async function sendRenterConfirmation({
           <h2 style="color: #111827; margin-bottom: 8px;">Your request is live!</h2>
           <p style="color: #6b7280; font-size: 15px; line-height: 1.6;">
             Hi ${renterName}, your request for a <strong>${courtLabel}</strong> basketball court has been sent to
-            <strong>${matchedCount} venue${matchedCount !== 1 ? "s" : ""}</strong> in San Francisco.
+            <strong>${matchedCount} venue${matchedCount !== 1 ? "s" : ""}</strong> in the Bay Area.
           </p>
           <p style="color: #6b7280; font-size: 15px; line-height: 1.6;">
             Venues will reach out to you directly with availability and pricing. Most respond within 24-48 hours.
           </p>
           <hr style="border: none; border-top: 1px solid #e5e7eb; margin: 24px 0;" />
           <p style="color: #9ca3af; font-size: 13px;">
-            CourtRenter &middot; Helping you find basketball courts in San Francisco
+            CourtRenter &middot; Helping you find basketball courts in the Bay Area
           </p>
         </div>
       `,

@@ -7,12 +7,14 @@ import { Venue } from "@/types/venue";
 
 export default function HomePage() {
   const [venueList, setVenueList] = useState<Venue[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     fetch("/api/venues")
       .then((r) => r.json())
       .then((data: Venue[]) => setVenueList(data))
-      .catch(() => {});
+      .catch(() => {})
+      .finally(() => setLoading(false));
   }, []);
 
   return (
@@ -89,18 +91,31 @@ export default function HomePage() {
       <section className="px-4 py-10 sm:py-16">
         <div className="max-w-5xl mx-auto">
           <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">Courts in the Bay Area</h2>
-          <p className="text-sm text-gray-500 text-center mb-8">
-            {venueList.length} venues ready to receive your request
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-            {venueList.map((venue) => (
-              <VenueCard key={venue.id} venue={venue} />
-            ))}
-          </div>
-          {venueList.length === 0 && (
-            <p className="text-center text-gray-400 py-12">
-              Loading courts...
+          {!loading && (
+            <p className="text-sm text-gray-500 text-center mb-8">
+              {venueList.length} venues ready to receive your request
             </p>
+          )}
+          {loading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="border border-gray-200 rounded-xl overflow-hidden animate-pulse">
+                  <div className="w-full h-40 bg-gray-200" />
+                  <div className="p-5 space-y-3">
+                    <div className="h-5 bg-gray-200 rounded w-3/4" />
+                    <div className="h-4 bg-gray-100 rounded w-1/2" />
+                    <div className="h-4 bg-gray-100 rounded w-full" />
+                    <div className="h-10 bg-gray-200 rounded-lg w-full mt-4" />
+                  </div>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+              {venueList.map((venue) => (
+                <VenueCard key={venue.id} venue={venue} />
+              ))}
+            </div>
           )}
         </div>
       </section>

@@ -28,10 +28,10 @@ export default function HomePage() {
           <h1 className="text-3xl sm:text-5xl font-bold text-gray-900 tracking-tight leading-tight">
             Rent Basketball Courts
             <br />
-            <span className="text-gray-400">in San Francisco</span>
+            <span className="text-gray-400">in the Bay Area</span>
           </h1>
           <p className="mt-3 sm:mt-4 text-base sm:text-lg text-gray-500 max-w-xl mx-auto">
-            Fill out one quick form and your request is sent to all matching venues instantly. No calling around.
+            One form sends your request to every matching gym and rec center in SF and the Bay Area. No calling around.
           </p>
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-3">
             <Link
@@ -57,7 +57,7 @@ export default function HomePage() {
               </div>
               <h3 className="font-semibold text-gray-900">Save hours of calling</h3>
               <p className="text-sm text-gray-500 mt-1">
-                Stop Googling and cold-calling gyms. One form reaches every court in SF.
+                Stop Googling and cold-calling gyms. One form reaches every court in the Bay Area.
               </p>
             </div>
             <div className="text-center">
@@ -88,7 +88,7 @@ export default function HomePage() {
 
       <section className="px-4 py-10 sm:py-16">
         <div className="max-w-5xl mx-auto">
-          <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">Courts in San Francisco</h2>
+          <h2 className="text-2xl font-bold text-gray-900 text-center mb-2">Courts in the Bay Area</h2>
           <p className="text-sm text-gray-500 text-center mb-8">
             {venueList.length} venues ready to receive your request
           </p>
@@ -120,7 +120,7 @@ export default function HomePage() {
               <div className="w-10 h-10 bg-gray-900 text-white rounded-full flex items-center justify-center mx-auto mb-3 text-lg font-bold">2</div>
               <h3 className="font-semibold text-gray-900">Venues Are Notified Instantly</h3>
               <p className="text-sm text-gray-500 mt-1">
-                Your request is sent to every matching gym and rec center in SF right away.
+                Your request is sent to every matching gym and rec center right away.
               </p>
             </div>
             <div>

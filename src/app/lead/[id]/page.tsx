@@ -67,7 +67,7 @@ export default function LeadDetailPage() {
 
         <h1 className="mt-4 text-2xl font-bold text-gray-900">Renter Lead</h1>
         <p className="mt-1 text-sm text-gray-500">
-          Someone is looking to rent a court in San Francisco.
+          Someone is looking to rent a court in the Bay Area.
         </p>
 
         {!unlocked ? (

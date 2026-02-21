@@ -9,9 +9,9 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "CourtRenter — Rent Basketball Courts in San Francisco",
-  description: "Find and rent basketball courts in San Francisco. Connect directly with gyms and rec centers for your team, league, or event.",
-  keywords: ["rent basketball court", "san francisco", "basketball court rental", "court rental SF", "gym rental", "courtrenter", "basketball sf"],
+  title: "CourtRenter — Rent Basketball Courts in the Bay Area",
+  description: "Find and rent basketball courts in SF and the Bay Area. Connect directly with gyms and rec centers for your team, league, or event.",
+  keywords: ["rent basketball court", "bay area", "san francisco", "basketball court rental", "court rental SF", "gym rental", "courtrenter", "basketball sf"],
   metadataBase: new URL("https://courtrenter.com"),
   icons: {
     icon: [
@@ -22,15 +22,15 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   openGraph: {
-    title: "CourtRenter — Rent Basketball Courts in San Francisco",
-    description: "Find and rent basketball courts in San Francisco. Connect directly with gyms and rec centers.",
+    title: "CourtRenter — Rent Basketball Courts in the Bay Area",
+    description: "Find and rent basketball courts in SF and the Bay Area. Connect directly with gyms and rec centers.",
     type: "website",
     siteName: "CourtRenter",
   },
   twitter: {
     card: "summary_large_image",
-    title: "CourtRenter — Rent Basketball Courts in San Francisco",
-    description: "Find and rent basketball courts in San Francisco. Connect directly with gyms and rec centers.",
+    title: "CourtRenter — Rent Basketball Courts in the Bay Area",
+    description: "Find and rent basketball courts in SF and the Bay Area. Connect directly with gyms and rec centers.",
   },
 };
 
@@ -69,7 +69,7 @@ export default function RootLayout({
         <footer className="border-t border-gray-100 py-8">
           <div className="max-w-5xl mx-auto px-4 text-center">
             <p className="text-sm text-gray-400">
-              CourtRenter &middot; Helping you find basketball courts in San Francisco
+              CourtRenter &middot; Helping you find basketball courts in the Bay Area
             </p>
           </div>
         </footer>

@@ -18,6 +18,16 @@ function VenuePlaceholder({ name }: { name: string }) {
   );
 }
 
+function priceToDollars(priceRange: string): string | null {
+  if (!priceRange) return null;
+  const match = priceRange.match(/\$(\d+)/);
+  if (!match) return null;
+  const low = parseInt(match[1], 10);
+  if (low <= 35) return "$";
+  if (low <= 55) return "$$";
+  return "$$$";
+}
+
 export default function VenueCard({ venue }: { venue: Venue }) {
   return (
     <div className="border border-gray-200 rounded-xl hover:border-gray-400 hover:shadow-md transition-all duration-200 flex flex-col overflow-hidden">
@@ -45,7 +55,12 @@ export default function VenueCard({ venue }: { venue: Venue }) {
 
         <p className="text-sm text-gray-600 line-clamp-2">{venue.description}</p>
 
-        <div className="flex items-center justify-end mt-auto pt-2">
+        <div className="flex items-center justify-between mt-auto pt-2">
+          {priceToDollars(venue.priceRange) ? (
+            <span className="text-sm font-semibold text-gray-900">{priceToDollars(venue.priceRange)}</span>
+          ) : (
+            <span />
+          )}
           <span className="text-xs text-gray-400">
             {venue.courtCount} court{venue.courtCount > 1 ? "s" : ""}
           </span>

@@ -30,6 +30,7 @@ const seedVenues: Venue[] = [
     website: "https://sfrecpark.org/facilities/facility/details/Mission-Recreation-Center-525",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwepNuy6rM27-b64EZG_Wwy9OvR7ODxN8LiSgP6qIl8kOM4UkGeICwBAWB2q7Q72GIzR3akzBgl_6CbKIiTk60XYiTZWA2Z4f9otxw-r73QEdIlr5hE8SEM3NAZzidzTXwoLGePvouw=w800-h600-k-no",
   },
   {
     id: "hamilton-rec-center",
@@ -43,6 +44,7 @@ const seedVenues: Venue[] = [
     website: "https://sfrecpark.org/facilities/facility/details/Hamilton-Recreation-Center-440",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwerZ-qtqUE50TbCJBt-MsNgem1jgre-PU4GPDBvNPQ1fTzdSe2rJIcgamHEcxWqq-YOCo6dsg3aoPeAhPbEtStzDWEUeajByr2OXp0Vcc3i9yUChy9TOMD_hoWRjbiw2-rk6GXk=w800-h600-k-no",
   },
   {
     id: "potrero-hill-rec",
@@ -56,6 +58,7 @@ const seedVenues: Venue[] = [
     website: "https://sfrecpark.org/facilities/facility/details/Potrero-Hill-Recreation-Center-555",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAweoQLrr-wlUnesrf8pSi-iMAOO_VUe3AyoFwNL7twY18uxdC4TIN94yLrFnUkzxHpNkH7ro8vyLk6HKsmBBP-ylV4Xi2MzbiY7E3MsRiC0ZTLy7iEpzzWlRWY7kuM0pquadmHmJg=w800-h600-k-no",
   },
   {
     id: "moscone-rec-center",
@@ -69,6 +72,7 @@ const seedVenues: Venue[] = [
     website: "https://sfrecpark.org/facilities/facility/details/Moscone-Recreation-Center-530",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwerTzoF8XOtoTVkUN0HZlKQC5jX1Q_UA0NDlZdimDAC9PXFPs0RD_TAN7aU_I79HARGUQ-EFe6wq2IyxqozsQUsrcRGVZvZPWfS42fyf8tBnqJ_J5xNNzkbEoxvqn3zPKnQAwCZ95g=w408-h544-k-no",
   },
   {
     id: "sunset-rec-center",
@@ -82,6 +86,7 @@ const seedVenues: Venue[] = [
     website: "https://sfrecpark.org/facilities/facility/details/Sunset-Recreation-Center-596",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwepUPOtVfPG8uHMVcsK8ueW4AGPKo-I0bpB0-O44q_UaRhJfwFgmuvVC3DwQQDcbYrB1EvAjaGM_UciUOFRV42h4TBb-hXdNXAoS1XwjgWjNUDNRtleZM84CCz1h-3hG7OdeLMWO=w408-h544-k-no",
   },
   {
     id: "glen-park-rec",
@@ -95,6 +100,7 @@ const seedVenues: Venue[] = [
     website: "https://sfrecpark.org/facilities/facility/details/Glen-Park-Recreation-Center-430",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwer9GV85VYag2VurGqF1E5E7U9MH0FRqnr07Ltl8GTDRcU6uyGSSm8Hst8RLCQj5b2ZU-G3X-WCCMSguyOePx3RYB2_ZVktgayue7D-0hqQRA-Up0XedAytHx-3F5WDNJdPusrklRQ=w408-h307-k-no",
   },
   {
     id: "joe-lee-rec",
@@ -108,6 +114,7 @@ const seedVenues: Venue[] = [
     website: "https://sfrecpark.org/facilities/facility/details/Joe-Lee-Recreation-Center-494",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAweqncJozOrROg0eTotqnAC-9MNU4qhufov-5mhJfEp4GQayg1_QRFVh9HqzbRGuXeZYDzwNEqEjUzDUCFvR4vmZxJjmw6R5qLTIyNb7jtYgK-vIukR6MtNO23DOP65R5-EL4Z-7epA=w493-h240-k-no",
   },
   {
     id: "balboa-pool-gym",
@@ -121,6 +128,7 @@ const seedVenues: Venue[] = [
     website: "https://sfrecpark.org/facilities/facility/details/Balboa-Park-395",
     indoor: true,
     courtCount: 2,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwerLXNMb14vl_W3-AYZLKqP4t5EWNCBpk4TsjBXx2hErVIY97o9kjqQ5kVGSyEWl4X-13EImOzWUqAdt_tII6k7GAqa4hfMFbeIBDHalfEDWTQVOiRSKvebHdFKDLF5D7ATTGbPQ=w114-h86-k-no",
   },
   {
     id: "garfield-square",
@@ -134,6 +142,7 @@ const seedVenues: Venue[] = [
     website: "https://sfrecpark.org/facilities/facility/details/Garfield-Square-427",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAweqOUw0NZRT6Aj71ubNSDfiaqezxepi7wicNAFMBnOxYE-Mw5FB2iPbsvBbhM-BQE73CTGsSNdLIBvEgSylm3rHnTp_VDASw_SR1gJWNj7pzXou8DqdoigAdD2pWoCrI1LWKRNmZzw=w800-h600-k-no",
   },
   {
     id: "crocker-amazon-fields",
@@ -147,6 +156,7 @@ const seedVenues: Venue[] = [
     website: "https://sfrecpark.org/facilities/facility/details/Crocker-Amazon-Playground-411",
     indoor: false,
     courtCount: 4,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwepZDjWuwIfYX5zu4Oonm2NZ5hOPOEqjh7wz5rEVd4yIpf6ob0DJ2StcrA_aqu4_qWc6xG_MMMCzX8DGiS_gx5w1GC6zlFqCTxdvdi-JaEW7z4Vm8XivHuMaVj_CDmnswjAdSofh=w800-h600-k-no",
   },
   {
     id: "alameda-point-gymnasium",
@@ -174,6 +184,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwepfa9lDq9_KqGgVPjOS3av9K8OFvPLfZEdE3W1-LwEYL9E1dRcQSTOj6IrwVGOMtsCmLDEXR7Y0bdrN3tiTOBEBMT6EbqeFh_4R0iOqu2Z-qvQ_U1dkIi3ZY1a4dvbIjiYL_oSP=w426-h240-k-no",
   },
   {
     id: "arrillaga-family-gymnasium",
@@ -201,6 +212,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/p/AF1QipMzAhdGmBJEHWqdx8rAfNraJKIagTHQTWPoxDz1=w639-h240-k-no",
   },
   {
     id: "bay-city-basketball-hq",
@@ -228,6 +240,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwer5H756MZlULwpFRWps6T4Wg-wA6LWdvCSlWcUd67hvB8k4hE66ZPZdSfUN5ZBBg28lE5AHULCFRB1855F9cxuXkmWV_EuL0kfpydQhNOMLn6gXl63IQeoAY-PATdqD5rP1e-p5=w800-h600-k-no",
   },
   {
     id: "boys-and-girls-club-coastside",
@@ -255,6 +268,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwepuFwDeh2PTYoGryNHlZWzYfB8Z1G057wjse9lxK2l0rHfZlSTPCUeNKO1VMl-vckYxU7AJ-Docf_4ILhedFXgsRMocpgPrDFuR44Pj17RX6O9RoH3NWwUlckuhZPGx6idraWRf3w=w408-h541-k-no",
   },
   {
     id: "calvary-church-los-gatos",
@@ -268,6 +282,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/p/AF1QipM3Ui4gKZkqIwQQFH3qcP05MeTxNC9zMGXVORCB=w408-h298-k-no",
   },
   {
     id: "camden-community-center",
@@ -281,6 +296,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwerVJZ_UK3c21StgjrTGOqwOUn1xiQG0AR_su94dfym-dgKRHitPOIlWnEuEUBJcVVKZsYeHYSbhIVaWXcDkp-SmOAP0XPgV94hRqOXt_q-D0JkflDbdt_hS3WSF43_boMM_qTYn4A=w800-h600-k-no",
   },
   {
     id: "campbell-community-center-main-gym",
@@ -322,6 +338,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwep65O_LMosDGMwTkdqOnYv0ZMhdkH3ql7z6pPeZCTzIKJ1pjFQS13JiNnjIqMIcoTcQogPoaq7Zj1cXgPJ9Qt6W5Yub1Oxpp9t0pFeOeM8YX3kgkbJPQtpCd90abRSRr06iAftl=w408-h302-k-no",
   },
   {
     id: "emeryville-center-of-community-life-gymnasium",
@@ -335,6 +352,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAweqcw0SMQSYOIxUP1zbQfBc8rT0zP8FqGuTEI4Uy4i-X3FX-WH7NID8CnoG8j9SJHmrqG3U4zmVmTwA5MJLMopvC7nDGtcg7EQCxoh6dxLgIe94BQFditXQuS1ZSXMPMMRQyKinSSg=w156-h114-p-k-no",
   },
   {
     id: "house-of-hustle",
@@ -348,6 +366,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/a-/ALV-UjWK2Nim5exEXPr9bvLKi39idHzokKBgH96_LdQZcSDggJbriRYp5g=w36-h36-p-rp-mo-ba4-br100",
   },
   {
     id: "ica-cristo-rey-academy",
@@ -361,6 +380,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/p/AF1QipPgdubP2f41eOvG7npHmJ-25Dc71nPLigdaMMEj=w800-h600-k-no",
   },
   {
     id: "irvington-community-center",
@@ -374,6 +394,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAweqKl5MPphwcyp9JeBXxC36XfHCyFRkoYKwk-J9IHHScbDQmQdn6M983hg7C6trhnMD-E2PTgY8Vw5y5MoNH6Ov0gLW54t9In_ITy7JDrAv4NzczmQAE2WUAzm4KWn9BczrOlYrDQA=w800-h600-k-no",
   },
   {
     id: "james-kenney-community-center",
@@ -387,6 +408,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAweqyvdg40KoIKenPhKilWxCoqWlcaIgRwUUnh0cN2ZwxVYd-2lj-GMiYECmb7bXZwJ9CyU9pRD0K9F1SCWhuGKY9w0hb13oZiYI9ut0LWYovNLEBV6IEVA_5YNjEi0r3MouRtXaY1g=w800-h600-k-no",
   },
   {
     id: "jewish-community-center-of-san-francisco",
@@ -400,6 +422,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/p/AF1QipOFgIrdaps0W68wiuAOZZXU21-m16m7-c-PZaM=w426-h240-k-no",
   },
   {
     id: "king-community-center",
@@ -413,6 +436,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAweptLyqZuGQ92Hev8o0aSZkhRTmeGEbxtMQO6hsUCJF3OhDfUhfmqOJLwJddvk3V001G0CxMAdnbs8lu3lJHCtqpo2E8czNyLo1Wcm4n7aP2B0JJ8L5Oqwp4oQxOxzmb_maIHR2PoA=w408-h307-k-no",
   },
   {
     id: "mlk-jr-youth-services-center",
@@ -426,6 +450,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/a-/ALV-UjWAa75qPlLua2NacyGyWz7wGsVNyFKtvg7rnqKIyUVkQR-Qh08U=w36-h36-p-rp-mo-br100",
   },
   {
     id: "marina-middle-school",
@@ -439,6 +464,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAweqvZ9pFQU22liezXr4llJE5yODlFrjCwvnPEHCeFKvYvIh9DJ9CANriCGfhJe7QJ2XjjXvHjnwHgZ42H0Dqv2zC21EACze2qKsL8q5U6ZWSkN22bvk8CB9Vge6IhGzU3kOzGTaW=w408-h725-k-no",
   },
   {
     id: "mark-green-sports-center",
@@ -452,6 +478,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAweqe7mk4A5X8dtLhd6ihbA74n1SjEWYcctDtI10W9Ck_rf-0Pd1YCOuLkg65_4m5hq1VtdZDF7TqdUicuBTYg0UiSnFw3f0CXtF826AL3BWyMXxv7F0fG9-1zuFcH-NfvHfsmDgfig=w800-h600-k-no",
   },
   {
     id: "milpitas-sports-center-gymnasium",
@@ -465,6 +492,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwepktImjeLRGb5ipYZ8MnEtC1K3qLNa8qC8N7qm_WjwLQ_i2QlbCj4KBZotSl_S3Si8hZKxPfP-0ddzADr4hZTIr-mrtc67JPkJHAZG5wyQNm5NG80PW0Y0mgOXuNZ4R1M_Jcf3_yW3iYao=w408-h408-k-no",
   },
   {
     id: "mission-dolores-academy",
@@ -478,6 +506,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwerbLaMSlv3THw0Du7ur5Xksc0BeH8PqbG6qzBQIO9mF51J3ztJufY7lsVuTK4rls4ig9XuJkqS7PQ2s-j3Z0oI2w2woXcdQZLvzjvLx2nn33oUaHOCRHEPZQo_KCsNa_3sT7xY=w408-h271-k-no",
   },
   {
     id: "oakland-ymca",
@@ -491,6 +520,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAweqR3CyURGHlEXRL_iz84DGjeqoFWcRLx75nHW0ZOGGdYvlbD9bft1bOzOOjJTgQU_jy9W-IfXAT79EEqDGHzPYm5tflj91019Rc-NIpB7_H1bh7tTN-5sXJG4U8xCv-tc9yX0MxKA=w408-h544-k-no",
   },
   {
     id: "presidio-community-ymca",
@@ -517,6 +547,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAweotNLVmhPH86Q1P7ErWR81r2QNKFmTAshnr0EwNsJ707LQQJkYr6glBGz7bLiQNOU-T1E1Jmoe6r50Qi_0TIPrJD73hS1j_23NOWvU93VSh9aBQtvxJ3RBRcJOsnqBiPBzjOC1H=w800-h600-k-no",
   },
   {
     id: "sf-international-hs",
@@ -530,6 +561,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwepvljP7juozhWOHCdSZgIzz5tdzQy2JDUNGUshH83wTlPVBLAsxp67WaKBvy886tP24mPkRKhgN8zZ2hp3vZKxS7uBtuQ6--f44D4svBtQiCETMlDbrRWV4vjMolPc-HxRG8LRb=w408-h544-k-no",
   },
   {
     id: "salvation-army-kroc-center",
@@ -543,6 +575,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAweqoCDEk_HHdC0hb-jeq76gd-c_2bNc2G1bpMFdc7KkAwM63n4M3v4Fba3LzQxcjFbx-fEL0e-u2tENiasckHmJTXql0DKTvROnH0rMDDCYD7MzCkK51daVuuc_KcaDhFr7Mmol9Cw=w800-h600-k-no",
   },
   {
     id: "san-carlos-youth-center",
@@ -570,6 +603,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwepRivUUcRuKEgCLKrwbJXxJHNKnVTNrZZhVJvygwROOJh9h4SsS6BJlJ9EtyYENL5BrdcERCYuHV384-L3ZFMsJaSEulHWgTHCieEi9LGl7KCHvAgqXexrASnSdoXCZCP9JlPAQ2SzRGdqf=w800-h600-k-no",
   },
   {
     id: "silliman-activity-center-gymnasium",
@@ -583,6 +617,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwernS3GnYqdP4Jr0-ZYRgt5FruvhOEBz2M6YkAJHIO7z_CbVmE_EJ2VTUlVJJw94cMd6JgQMwLjdjtYjQPS1eNAQaWWo7wObK55UWjl1o03dkfHNWtqkiBX7WPTcF6PjaFY3xJ0ipkztWDBC=w800-h600-k-no",
   },
   {
     id: "sportshouse-gym",
@@ -610,6 +645,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwepvdWI2u5EvYncl9At7KTMwobIp6KxD_IK4-WnC1ck75w97L5UkQtASIMXbjBc-pmUuXbvLLHC_vJDgRQpVphf5D1oyzDePPiJQM9A0U_vXdy4xLbJVOtgtXExdhU5p6QdphHBGCw=w426-h240-k-no",
   },
   {
     id: "the-club-at-city-center",
@@ -623,6 +659,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAweoPtN2NIEWWNi_W78M4CBsH9EcULQLqdBtZxrwdfGKY6neX3Rn28ycTmNCCI3ZUUbDO5lIg6hOYoSigjRLa6eJqQ2FUjqGMjHVtVedZJVtJf28WR482LBbpg4YXKKcVMffhsa8R=w800-h600-k-no",
   },
   {
     id: "ultimate-fieldhouse",
@@ -650,6 +687,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/p/AF1QipNj2AxkbO4qQnTzZgnBu1IdQdYPdY6zg2UgNtEd=w800-h600-k-no",
   },
   {
     id: "wagner-ranch-elementary-school-gym",
@@ -663,6 +701,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwepzZWM34CCwaZ1_C4Dk2Jjo1eRH3LoW_PG-Ivbpf6rvdrRJJHdsC0F5oiPUSVG1yny1U_NibGmh1INSMOFLaK4c8w-E4XLcKPSjUGTtAJsAtoWAZa82F3rBFFE8Fr6LZoQkg8XQ=w426-h240-k-no",
   },
   {
     id: "whisman-sports-center",
@@ -676,6 +715,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwepBJZXhnibsS9GHVPZPsVlKt3iEEQRHw4WEsR5nv5N09F0xi18obyGmR8QQD1xwHbbcx5Dde-TDAYvcFrUlXYHQYOMbCsRNTHHX01MV-ii-KIDoeu87lXe04ulTkLcw9fvfJor5jaIUtdYl=w408-h544-k-no",
   },
   {
     id: "woodside-elementary-school",

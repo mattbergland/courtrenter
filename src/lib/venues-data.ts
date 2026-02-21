@@ -128,7 +128,7 @@ const seedVenues: Venue[] = [
     website: "https://sfrecpark.org/facilities/facility/details/Balboa-Park-395",
     indoor: true,
     courtCount: 2,
-    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAwerLXNMb14vl_W3-AYZLKqP4t5EWNCBpk4TsjBXx2hErVIY97o9kjqQ5kVGSyEWl4X-13EImOzWUqAdt_tII6k7GAqa4hfMFbeIBDHalfEDWTQVOiRSKvebHdFKDLF5D7ATTGbPQ=w114-h86-k-no",
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAweolowm5PazzJ2W22BYjS7ro70-1Yqly_4SCxrw0Y55upmGv681wa31ABn1HrlpyuuWYbv5SXe8ZcRKKHBM7VxqWdapae9fyjr4ldG0LHRf9Xlikj-3y5GI8y_Guae4Wv2dIJ7ALxA=w800-h600-k-no",
   },
   {
     id: "garfield-square",
@@ -282,7 +282,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
-    imageUrl: "https://lh3.googleusercontent.com/p/AF1QipM3Ui4gKZkqIwQQFH3qcP05MeTxNC9zMGXVORCB=w408-h298-k-no",
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAweobgMTKz07zubRH6T38VO5qa9aMVK3nsHPjxa59OD-7SFLtpkz5Ji1NTUUoP8C8ddPZC5tC9lo4VeDSJZPozMlk4Zz20bhAF9YkcwpHcoP1aXGGDJo0BWTwtQoS5CV4DYIVtlg=w800-h600-k-no",
   },
   {
     id: "camden-community-center",
@@ -366,7 +366,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
-    imageUrl: "https://lh3.googleusercontent.com/a-/ALV-UjWK2Nim5exEXPr9bvLKi39idHzokKBgH96_LdQZcSDggJbriRYp5g=w36-h36-p-rp-mo-ba4-br100",
+    imageUrl: "https://lh3.googleusercontent.com/gps-cs-s/AHVAweqooMzU4U5at1mB4XVnH3Yiq5ql4mARHy2C421va0KfKNshyOMNccan0baPH4TUHhrwCbnQ0bayth-U0nyU5HksoOeHungF9k8D0JdCRChBjTeATVln5ilJ98oPLW1f3YgRA06o=w800-h600-k-no",
   },
   {
     id: "ica-cristo-rey-academy",
@@ -450,7 +450,7 @@ const seedVenues: Venue[] = [
     website: "",
     indoor: true,
     courtCount: 1,
-    imageUrl: "https://lh3.googleusercontent.com/a-/ALV-UjWAa75qPlLua2NacyGyWz7wGsVNyFKtvg7rnqKIyUVkQR-Qh08U=w36-h36-p-rp-mo-br100",
+    imageUrl: "https://streetviewpixels-pa.googleapis.com/v1/thumbnail?panoid=ywGrBPoH6TGthReveOizdw&cb_client=search.gws-prod.gps&w=800&h=600&yaw=177.77702&pitch=0&thumbfov=100",
   },
   {
     id: "marina-middle-school",
